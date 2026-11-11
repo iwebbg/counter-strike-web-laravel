@@ -2,9 +2,44 @@
 
 use App\GameServers\Contracts\GameServerQuery;
 use App\Models\GameServer;
+use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schedule;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
+
+Artisan::command('admin:create', function (): int {
+    $data = [
+        'name' => trim((string) $this->ask('Administrator name')),
+        'email' => trim((string) $this->ask('Email address')),
+        'password' => (string) $this->secret('Password'),
+        'password_confirmation' => (string) $this->secret('Confirm password'),
+    ];
+    $validator = Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+        'password' => ['required', 'confirmed', Password::min(12)->mixedCase()->numbers()->symbols()],
+    ]);
+
+    if ($validator->fails()) {
+        foreach ($validator->errors()->all() as $error) {
+            $this->error($error);
+        }
+
+        return self::FAILURE;
+    }
+
+    User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => $data['password'],
+        'is_admin' => true,
+    ]);
+    $this->info('Administrator created.');
+
+    return self::SUCCESS;
+})->purpose('Create a website administrator interactively');
 
 Artisan::command('servers:refresh {server?}', function (GameServerQuery $query): int {
     $servers = GameServer::published()->when($this->argument('server'), fn ($builder, $id) => $builder->whereKey($id))->get();
