@@ -44,6 +44,12 @@ class AdminCategoryManagementTest extends TestCase
         $this->assertSame('Сърф', $category->localizedName('bg'));
         $this->assertSame('Surf', $category->localizedName('en'));
 
+        $this->actingAs($administrator)->get('/admin/categories')
+            ->assertOk()
+            ->assertSee('class="table-action"', false)
+            ->assertSee(__('ui.common.edit'))
+            ->assertDontSee(__('ui.common.delete'));
+
         $this->actingAs($administrator)->delete('/admin/categories/'.$category->id)
             ->assertRedirect('/admin/categories');
         $this->assertDatabaseMissing('server_categories', ['id' => $category->id]);

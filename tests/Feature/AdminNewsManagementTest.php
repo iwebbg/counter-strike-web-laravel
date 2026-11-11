@@ -50,6 +50,12 @@ class AdminNewsManagementTest extends TestCase
         $this->assertStringNotContainsString('script', $post->localized('body', 'bg'));
         $this->assertStringNotContainsString('onclick', $post->localized('body', 'bg'));
         $this->assertTrue($post->is_published);
+
+        $this->actingAs($administrator)->get('/admin/news')
+            ->assertOk()
+            ->assertSee('class="table-action"', false)
+            ->assertSee(__('ui.common.edit'))
+            ->assertDontSee(__('ui.common.delete'));
     }
 
     /** Allows an administrator to delete a post. */

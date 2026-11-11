@@ -43,6 +43,12 @@ class AdminServerManagementTest extends TestCase
         $administrator = User::where('email', 'admin@fragzone.local')->firstOrFail();
         $server = GameServer::firstOrFail();
 
+        $this->actingAs($administrator)->get('/admin/servers')
+            ->assertOk()
+            ->assertSee('class="table-action"', false)
+            ->assertSee(__('ui.common.edit'))
+            ->assertDontSee(__('ui.common.delete'));
+
         $this->actingAs($administrator)->get('/admin/servers/'.$server->id.'/edit')
             ->assertOk()
             ->assertSee('data-locale-tabs', false)
