@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Models\GameServer;
+use App\Models\ServerCategory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
+
+/** Manages configured game servers. */
+class GameServerController
+{
+    /** Lists managed servers. */
+    public function index(): View
+    {
+        return view('admin.servers.index', ['servers' => GameServer::with('category')->latest()->paginate(20)]);
+    }
+
+    /** Shows the create form. */
+    public function create(): View
+    {
+        return view('admin.servers.form', ['server' => new GameServer, 'categories' => ServerCategory::orderBy('name')->get()]);
+    }
+
+    /** Stores a server. */
+    public function store(Request $request): RedirectResponse
+    {
+        GameServer::create($this->validated($request));
+
+        return redirect()->route('admin.servers.index')->with('status', 'Сървърът е добавен.');
+    }
+
+    /** Shows the edit form. */
+    public function edit(GameServer $server): View
+    {
+        return view('admin.servers.form', ['server' => $server, 'categories' => ServerCategory::orderBy('name')->get()]);
+    }
+
+    /** Updates a server. */
+    public function update(Request $request, GameServer $server): RedirectResponse
+    {
+        $server->update($this->validated($request, $server));
+
+        return redirect()->route('admin.servers.index')->with('status', 'Промените са запазени.');
+    }
+
+    /** Deletes a server. */
+    public function destroy(GameServer $server): RedirectResponse
+    {
+        $server->delete();
+
+        return back()->with('status', 'Сървърът е изтрит.');
+    }
+
+    /** Validates and normalizes server form input. */
+    private function validated(Request $request, ?GameServer $server = null): array
+    {
+        $data = $request->validate(['server_category_id' => ['required', 'exists:server_categories,id'], 'name' => ['required', 'string', 'max:120'], 'slug' => ['nullable', 'alpha_dash', 'max:140', 'unique:game_servers,slug,'.($server?->id ?? 'NULL')], 'game' => ['required', 'in:cs16,csgo'], 'protocol' => ['required', 'in:goldsrc,source'], 'host' => ['required', 'string', 'max:253'], 'port' => ['required', 'integer', 'between:1,65535'], 'description' => ['nullable', 'string', 'max:3000'], 'location' => ['nullable', 'string', 'max:80']]);
+        $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
+        $data['is_featured'] = $request->boolean('is_featured');
+        $data['is_published'] = $request->boolean('is_published');
+
+        return $data;
+    }
+}
