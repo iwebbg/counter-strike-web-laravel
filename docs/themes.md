@@ -71,11 +71,16 @@ Theme-specific styling can be written inside an overridden Blade layout or can r
 - Preserve accessibility labels, locale helpers, CSRF fields and admin-free public navigation.
 - Store each commissioned theme directory in Git so it can be deployed and rolled back with the application.
 
-After adding/removing a theme on a cached production installation, clear cached views/configuration:
+After adding/removing a theme on a cached manual/LAMP installation, clear cached views/configuration:
 
 ```bash
 php artisan optimize:clear
 php artisan optimize
 ```
 
-Inside Docker, prefix these commands with `./docker/compose exec -T app`.
+Inside Docker run the same operations as the PHP-FPM user to keep compiled views writable:
+
+```bash
+./docker/compose artisan optimize:clear
+./docker/compose artisan optimize
+```
