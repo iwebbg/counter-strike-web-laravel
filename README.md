@@ -1,27 +1,50 @@
 # FragZone — Counter-Strike server portal
 
-Laravel Blade portal for CS 1.6 and CS:GO communities. It includes a public server browser, live server details, news, categories, rankings, and a small administration area.
+FragZone is a Laravel Blade portal for CS 1.6 and CS:GO communities. It combines a public server browser, live Valve A2S telemetry, player rankings, bilingual news and a focused administration area.
 
-## Quick start
+## Requirements
+
+- Docker Engine with Docker Compose v2 for the recommended installation; or
+- PHP 8.5, Composer 2, MariaDB/MySQL and Apache/Nginx for a manual installation.
+- Outbound UDP access from the scheduler to every configured game-server port.
+
+## Local Docker quick start
 
 ```bash
+git clone https://github.com/iwebbg/counter-strike-web-laravel.git
+cd counter-strike-web-laravel
 cp .env.example .env
 cp docker/.env.example docker/.env
-./docker/compose up --build -d
-./docker/compose exec app php artisan key:generate
-./docker/compose exec app php artisan migrate --seed
+./docker/compose up --detach --build
+./docker/compose exec -T app php artisan key:generate
+./docker/compose exec -T app php artisan migrate --seed --force
 ```
 
-Open `http://localhost`. The seeded administrator is `admin@fragzone.local` / `ChangeMe123!`; change it immediately outside local development.
+Open `http://localhost`. The local seed creates `admin@fragzone.local` with password `ChangeMe123!`. This account is for local evaluation only.
 
-## Tests
+## Documentation
 
-Run PHPUnit only through the isolated SQLite test service:
+- [Feature catalogue](docs/features.md)
+- [Docker installation and production deployment](docs/installation.md)
+- [LAMP, Apache and cPanel installation](docs/installation-manual.md)
+- [Environment configuration reference](docs/configuration.md)
+- [Testing and database-isolation rules](docs/testing.md)
+- [Product concept](docs/concept.md)
+- [Architecture](docs/architecture.md)
+- [Roadmap](docs/roadmap.md)
+
+## Essential commands
 
 ```bash
+./docker/compose ps
+./docker/compose logs --follow app scheduler nginx
+./docker/compose exec -T app php artisan servers:refresh
+./docker/compose exec app php artisan admin:create
 ./docker/compose test
 ```
 
-The test bootstrap also forces an in-memory SQLite connection as a second safeguard against touching the local MariaDB data.
+Use `./docker/compose test` for PHPUnit. Never run `php artisan test` inside the long-running local application container.
 
-See [docs/concept.md](docs/concept.md), [docs/architecture.md](docs/architecture.md), and [docs/roadmap.md](docs/roadmap.md).
+## Security notice
+
+Production installations must use `APP_ENV=production`, `APP_DEBUG=false`, unique database passwords and a generated `APP_KEY`. Do not run the demo seeder in production. Create the first production administrator interactively with `php artisan admin:create`.
