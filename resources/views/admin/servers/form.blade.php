@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('title', $server->exists ? __('ui.admin.edit_server') : __('ui.admin.new_server'))
 @section('content')
 <section class="admin shell">

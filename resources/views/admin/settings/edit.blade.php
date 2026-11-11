@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('title', __('ui.admin.seo_settings'))
 @section('content')
 <section class="admin shell">

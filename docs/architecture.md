@@ -10,7 +10,7 @@
 
 ## Theme boundary
 
-Public themes are Blade-only overrides discovered under `resources/views/themes/<slug>`. The active slug is stored in `site_settings`, validated against installed directories and applied by web middleware before view rendering. Laravel searches the active theme first and falls back to core `resources/views`, so themes can replace individual pages without copying controllers, models or business logic. Administration always uses core views to preserve operator access.
+Public themes are Blade-only directories under `resources/views/themes/<slug>`. The complete `fragzone` directory is the physical default and fallback. The active slug is stored in `site_settings`, validated against installed directories and applied by web middleware before view rendering. Laravel searches the active theme first and then `themes/fragzone`, so custom themes can replace individual pages without copying controllers, models or business logic. Administration uses its separate core layout to preserve operator access.
 
 ## Domain model
 

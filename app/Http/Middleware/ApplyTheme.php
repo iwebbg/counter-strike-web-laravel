@@ -18,8 +18,14 @@ class ApplyTheme
     public function handle(Request $request, Closure $next): Response
     {
         $theme = $this->themes->activate(SiteSetting::query()->value('theme_slug'));
-        if (! $request->is('admin', 'admin/*') && is_dir($theme['views_path'])) {
-            View::getFinder()->prependLocation($theme['views_path']);
+        if (! $request->is('admin', 'admin/*')) {
+            $defaultTheme = $this->themes->available()[config('themes.default')] ?? null;
+            if (is_array($defaultTheme) && is_dir($defaultTheme['views_path'])) {
+                View::getFinder()->prependLocation($defaultTheme['views_path']);
+            }
+            if ($theme['slug'] !== ($defaultTheme['slug'] ?? null) && is_dir($theme['views_path'])) {
+                View::getFinder()->prependLocation($theme['views_path']);
+            }
         }
         View::share('activeTheme', $theme);
 

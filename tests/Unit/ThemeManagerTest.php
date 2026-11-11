@@ -16,8 +16,8 @@ class ThemeManagerTest extends TestCase
     {
         parent::setUp();
         $this->themesPath = sys_get_temp_dir().'/fragzone-themes-'.bin2hex(random_bytes(6));
-        mkdir($this->themesPath.'/raagzone/layouts', 0777, true);
-        file_put_contents($this->themesPath.'/raagzone/home.blade.php', '<h1>RaagZone</h1>');
+        mkdir($this->themesPath.'/fragzone-dark/layouts', 0777, true);
+        file_put_contents($this->themesPath.'/fragzone-dark/home.blade.php', '<h1>FragZone Dark</h1>');
     }
 
     /** Removes the disposable theme directory. */
@@ -32,9 +32,9 @@ class ThemeManagerTest extends TestCase
     {
         $manager = new ThemeManager($this->themesPath, 'fragzone', ['fragzone' => 'FragZone Core']);
 
-        $this->assertSame(['fragzone', 'raagzone'], array_keys($manager->available()));
-        $this->assertSame('Raagzone', $manager->available()['raagzone']['name']);
-        $this->assertSame($this->themesPath.'/raagzone', $manager->activate('raagzone')['views_path']);
+        $this->assertSame(['fragzone', 'fragzone-dark'], array_keys($manager->available()));
+        $this->assertSame('Fragzone Dark', $manager->available()['fragzone-dark']['name']);
+        $this->assertSame($this->themesPath.'/fragzone-dark', $manager->activate('fragzone-dark')['views_path']);
         $this->assertSame('fragzone', $manager->activate('removed-theme')['slug']);
     }
 }

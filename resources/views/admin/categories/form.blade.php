@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('title', $category->exists ? __('ui.admin.edit_category') : __('ui.admin.new_category'))
 @section('content')
 <section class="admin shell">

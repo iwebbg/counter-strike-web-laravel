@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('title', $post->exists ? __('ui.admin.edit_news') : __('ui.admin.new_news'))
 @section('content')
 <section class="admin shell">

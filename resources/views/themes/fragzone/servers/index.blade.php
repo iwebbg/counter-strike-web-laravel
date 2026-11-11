@@ -9,7 +9,7 @@
         <select name="category"><option value="">{{ __('ui.servers.all_categories') }}</option>@foreach($categories as $category)<option value="{{ $category->slug }}" @selected(request('category') === $category->slug)>{{ $category->localizedName() }}</option>@endforeach</select>
         <button class="button">{{ __('ui.servers.filter') }}</button>
     </form>
-    <div class="server-grid">@forelse($servers as $server)<x-server-card :server="$server"/>@empty<p>{{ __('ui.servers.none') }}</p>@endforelse</div>
+    <div class="server-grid">@forelse($servers as $server)@include('components.server-card', ['server' => $server])@empty<p>{{ __('ui.servers.none') }}</p>@endforelse</div>
     {{ $servers->links() }}
 </section>
 @endsection

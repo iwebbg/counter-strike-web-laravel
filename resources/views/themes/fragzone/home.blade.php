@@ -20,7 +20,7 @@
 </section>
 <section class="section shell">
     <div class="heading"><div><span class="eyebrow">{{ __('ui.home.live_network') }}</span><h2>{{ __('ui.home.active_servers') }}</h2></div><a href="{{ route('servers.index') }}">{{ __('ui.home.view_all') }}</a></div>
-    <div class="server-grid">@foreach($servers as $server)<x-server-card :server="$server"/>@endforeach</div>
+    <div class="server-grid">@foreach($servers as $server)@include('components.server-card', ['server' => $server])@endforeach</div>
 </section>
 <section class="section shell">
     <div class="heading"><div><span class="eyebrow">{{ __('ui.home.find_mode') }}</span><h2>{{ __('ui.home.categories') }}</h2></div></div>
