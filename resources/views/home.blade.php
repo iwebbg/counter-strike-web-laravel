@@ -5,7 +5,7 @@
     <section class="hero shell">
         <div>
             <span class="eyebrow"><i></i>{{ __('ui.home.eyebrow') }}</span>
-            <h1>{{ __('ui.home.hero_1') }}<br><em>{{ __('ui.home.hero_2') }}</em><br>{{ __('ui.home.hero_3') }}</h1>
+            <h1>{{ __('ui.home.hero_1') }}<br><em>{{ __('ui.home.hero_2') }}</em></h1>
             <p>{{ __('ui.home.intro') }}</p>
             <p class="buttons"><a class="button" href="{{ route('servers.index') }}">{{ __('ui.home.browse') }}</a><a class="button ghost" href="#news">{{ __('ui.home.latest_news') }}</a></p>
         </div>

@@ -12,7 +12,7 @@ return [
     ],
     'home' => [
         'title' => 'Home', 'eyebrow' => 'BALKAN COUNTER-STRIKE COMMUNITY',
-        'hero_1' => 'YOUR SERVER.', 'hero_2' => 'YOUR TEAM.', 'hero_3' => 'YOUR MOMENT.',
+        'hero_1' => 'PLAY.', 'hero_2' => 'WIN.',
         'intro' => 'Curated CS 1.6 and CS:GO servers, live statistics and a community where every round matters.',
         'browse' => 'BROWSE SERVERS →', 'latest_news' => 'LATEST NEWS', 'players_online' => 'PLAYERS ONLINE',
         'live_servers' => 'LIVE SERVERS', 'total_slots' => 'TOTAL SLOTS', 'game_modes' => 'GAME MODES', 'community' => 'COMMUNITY',

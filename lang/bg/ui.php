@@ -12,7 +12,7 @@ return [
     ],
     'home' => [
         'title' => 'Начало', 'eyebrow' => 'БАЛКАНСКА COUNTER-STRIKE ОБЩНОСТ',
-        'hero_1' => 'ТВОЯТ СЪРВЪР.', 'hero_2' => 'ТВОЯТ ОТБОР.', 'hero_3' => 'ТВОЯТ МОМЕНТ.',
+        'hero_1' => 'ИГРАЙ.', 'hero_2' => 'ПОБЕДИ.',
         'intro' => 'Подбрани CS 1.6 и CS:GO сървъри, live статистика и общност, в която всеки рунд има значение.',
         'browse' => 'РАЗГЛЕДАЙ СЪРВЪРИТЕ →', 'latest_news' => 'ПОСЛЕДНИ НОВИНИ', 'players_online' => 'ИГРАЧИ ОНЛАЙН',
         'live_servers' => 'LIVE СЪРВЪРИ', 'total_slots' => 'ОБЩО СЛОТОВЕ', 'game_modes' => 'GAME РЕЖИМИ', 'community' => 'COMMUNITY',

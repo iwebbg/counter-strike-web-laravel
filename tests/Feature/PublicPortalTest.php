@@ -22,7 +22,7 @@ class PublicPortalTest extends TestCase
     /** Shows live network content on the landing page. */
     public function test_home_page_shows_seeded_servers_and_news(): void
     {
-        $this->get('/')->assertOk()->assertSee('ТВОЯТ СЪРВЪР.')->assertSee('FragZone Classic #1')->assertSee('Retakes уикенд');
+        $this->get('/')->assertOk()->assertSee('ИГРАЙ.')->assertSee('ПОБЕДИ.')->assertSee('FragZone Classic #1')->assertSee('Retakes уикенд');
     }
 
     /** Stores the selected language and renders the English interface. */
@@ -37,7 +37,8 @@ class PublicPortalTest extends TestCase
             ->assertSee('<html lang="en">', false)
             ->assertSee('<select name="locale"', false)
             ->assertSee('<option value="en" selected>English</option>', false)
-            ->assertSee('YOUR SERVER.')
+            ->assertSee('PLAY.')
+            ->assertSee('WIN.')
             ->assertSee('BROWSE SERVERS')
             ->assertSee('Home');
     }
