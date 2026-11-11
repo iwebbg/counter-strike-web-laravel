@@ -10,7 +10,7 @@ use App\Http\Controllers\ServerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
-Route::post('/locale/{locale}', LocaleController::class)->name('locale.update');
+Route::post('/locale', LocaleController::class)->name('locale.update');
 Route::get('/servers', [ServerController::class, 'index'])->name('servers.index');
 Route::get('/servers/{server:slug}', [ServerController::class, 'show'])->name('servers.show');
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');

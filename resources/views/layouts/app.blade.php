@@ -20,14 +20,18 @@
         <a href="{{ route('news.index') }}">{{ __('ui.nav.news') }}</a>
         @auth<a href="{{ route('admin.dashboard') }}">{{ __('ui.nav.administration') }}</a>@endauth
     </nav>
-    <div class="locale-switcher" aria-label="Language">
-        @foreach(config('localization.locales') as $locale => $label)
-            <form method="post" action="{{ route('locale.update', $locale) }}">
-                @csrf
-                <button type="submit" class="{{ app()->getLocale() === $locale ? 'is-active' : '' }}" title="{{ $label }}" aria-label="{{ $label }}">{{ strtoupper($locale) }}</button>
-            </form>
-        @endforeach
-    </div>
+    <form class="locale-switcher" method="post" action="{{ route('locale.update') }}">
+        @csrf
+        <label>
+            <span class="sr-only">{{ __('ui.common.language') }}</span>
+            <select name="locale" aria-label="{{ __('ui.common.language') }}" onchange="this.form.submit()">
+                @foreach(config('localization.locales') as $locale => $label)
+                    <option value="{{ $locale }}" @selected(app()->getLocale() === $locale)>{{ $label }}</option>
+                @endforeach
+            </select>
+        </label>
+        <noscript><button type="submit">OK</button></noscript>
+    </form>
     <a class="live" href="{{ route('servers.index') }}"><i></i>{{ \App\Models\GameServer::where('is_online', true)->count() }} {{ __('ui.common.live') }}</a>
 </header>
 <main>@yield('content')</main>

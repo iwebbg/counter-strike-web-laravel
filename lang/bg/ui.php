@@ -8,7 +8,7 @@ return [
         'online' => 'ONLINE', 'offline' => 'OFFLINE', 'live' => 'LIVE', 'current_map' => 'ТЕКУЩА КАРТА',
         'unknown' => 'НЕИЗВЕСТНА', 'players' => 'ИГРАЧИ', 'ping' => 'ПИНГ', 'details' => 'Детайли',
         'address' => 'АДРЕС', 'updated' => 'ОБНОВЕНО', 'no_data' => 'няма данни', 'status' => 'Статус',
-        'map' => 'Карта', 'game' => 'Игра', 'name' => 'Име', 'edit' => 'Редакция', 'location' => 'Локация',
+        'map' => 'Карта', 'game' => 'Игра', 'name' => 'Име', 'edit' => 'Редакция', 'location' => 'Локация', 'language' => 'Език',
     ],
     'home' => [
         'title' => 'Начало', 'eyebrow' => 'БАЛКАНСКА COUNTER-STRIKE ОБЩНОСТ',

@@ -8,7 +8,7 @@ return [
         'online' => 'ONLINE', 'offline' => 'OFFLINE', 'live' => 'LIVE', 'current_map' => 'CURRENT MAP',
         'unknown' => 'UNKNOWN', 'players' => 'PLAYERS', 'ping' => 'PING', 'details' => 'Details',
         'address' => 'ADDRESS', 'updated' => 'UPDATED', 'no_data' => 'no data', 'status' => 'Status',
-        'map' => 'Map', 'game' => 'Game', 'name' => 'Name', 'edit' => 'Edit', 'location' => 'Location',
+        'map' => 'Map', 'game' => 'Game', 'name' => 'Name', 'edit' => 'Edit', 'location' => 'Location', 'language' => 'Language',
     ],
     'home' => [
         'title' => 'Home', 'eyebrow' => 'BALKAN COUNTER-STRIKE COMMUNITY',

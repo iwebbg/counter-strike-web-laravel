@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 class LocaleController
 {
     /** Change the active interface language. */
-    public function __invoke(Request $request, string $locale): RedirectResponse
+    public function __invoke(Request $request): RedirectResponse
     {
+        $locale = (string) $request->input('locale');
+
         abort_unless(array_key_exists($locale, config('localization.locales')), 404);
 
         $request->session()->put('locale', $locale);

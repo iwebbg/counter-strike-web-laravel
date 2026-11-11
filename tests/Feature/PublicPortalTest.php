@@ -28,13 +28,15 @@ class PublicPortalTest extends TestCase
     /** Stores the selected language and renders the English interface. */
     public function test_visitor_can_switch_interface_to_english(): void
     {
-        $this->from('/')->post('/locale/en')
+        $this->from('/')->post('/locale', ['locale' => 'en'])
             ->assertRedirect('/')
             ->assertSessionHas('locale', 'en');
 
         $this->get('/')
             ->assertOk()
             ->assertSee('<html lang="en">', false)
+            ->assertSee('<select name="locale"', false)
+            ->assertSee('<option value="en" selected>English</option>', false)
             ->assertSee('YOUR SERVER.')
             ->assertSee('BROWSE SERVERS')
             ->assertSee('Home');
@@ -43,7 +45,7 @@ class PublicPortalTest extends TestCase
     /** Rejects locale codes that are not configured for the portal. */
     public function test_visitor_cannot_select_an_unsupported_locale(): void
     {
-        $this->post('/locale/de')->assertNotFound();
+        $this->post('/locale', ['locale' => 'de'])->assertNotFound();
         $this->assertNull(session('locale'));
     }
 
