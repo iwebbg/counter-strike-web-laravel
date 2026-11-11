@@ -11,7 +11,8 @@ FROM base AS testing
 COPY composer.json composer.lock ./
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 COPY . .
-RUN composer dump-autoload --optimize --no-interaction
+RUN mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
+    && composer dump-autoload --optimize --no-interaction
 CMD ["composer", "test"]
 FROM base AS production
 COPY composer.json composer.lock ./
