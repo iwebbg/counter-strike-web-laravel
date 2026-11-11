@@ -20,7 +20,7 @@
 
 `GameServerQuery` is the application contract. `SourceEngineQuery` implements Valve A2S UDP queries for Source and GoldSrc servers. Controllers never open sockets. The scheduled `servers:refresh` command queues or executes refreshes, stores a compact last-known state on each server and appends a snapshot.
 
-LGSL 7 is treated as a protocol reference and optional future adapter, not copied wholesale. Before incorporating source, verify the exact upstream license and retain its notices. Keeping an adapter boundary prevents third-party protocol code from leaking into controllers and models.
+LGSL 7 is treated only as a protocol reference. Its `lgsl7` branch is GPL-3.0, marked experimental/unstable, and requires an old PHPUnit release as a runtime Composer dependency. No LGSL source is imported, preserving this project's license and PHPUnit 12 compatibility. Keeping an adapter boundary prevents third-party protocol code from leaking into controllers and models.
 
 ## Operations
 

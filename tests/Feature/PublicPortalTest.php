@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\GameServer;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -34,5 +35,26 @@ class PublicPortalTest extends TestCase
     public function test_server_detail_shows_connection_address(): void
     {
         $this->get('/servers/fragzone-classic')->assertOk()->assertSee('127.0.0.1:27015');
+    }
+
+    /** Shows persisted player details ordered by their queried score. */
+    public function test_server_detail_shows_player_ranking(): void
+    {
+        $server = GameServer::where('slug', 'fragzone-classic')->firstOrFail();
+        $server->snapshots()->create([
+            'is_online' => true,
+            'map' => 'de_dust2',
+            'players' => 2,
+            'max_players' => 32,
+            'player_data' => [
+                ['name' => 'Top Fragger', 'score' => 42, 'duration_seconds' => 720],
+                ['name' => 'Second Player', 'score' => 18, 'duration_seconds' => 420],
+            ],
+            'queried_at' => now(),
+        ]);
+
+        $this->get('/servers/fragzone-classic')
+            ->assertOk()
+            ->assertSeeInOrder(['Top Fragger', '42', 'Second Player', '18']);
     }
 }

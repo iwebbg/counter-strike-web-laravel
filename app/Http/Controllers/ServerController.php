@@ -22,7 +22,12 @@ class ServerController
     public function show(GameServer $server): View
     {
         abort_unless($server->is_published, 404);
+        $latestSnapshot = $server->snapshots()->latest('queried_at')->first();
 
-        return view('servers.show', ['server' => $server->load('category'), 'snapshots' => $server->snapshots()->latest('queried_at')->limit(24)->get()->reverse()]);
+        return view('servers.show', [
+            'server' => $server->load('category'),
+            'snapshots' => $server->snapshots()->latest('queried_at')->limit(24)->get()->reverse(),
+            'players' => collect($latestSnapshot?->player_data ?? []),
+        ]);
     }
 }

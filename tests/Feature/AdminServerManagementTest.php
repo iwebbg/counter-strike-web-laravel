@@ -31,7 +31,7 @@ class AdminServerManagementTest extends TestCase
     {
         $administrator = User::where('email', 'admin@fragzone.local')->firstOrFail();
         $category = ServerCategory::firstOrFail();
-        $response = $this->actingAs($administrator)->post('/admin/servers', ['server_category_id' => $category->id, 'name' => 'Test Arena', 'slug' => 'test-arena', 'game' => 'cs16', 'protocol' => 'goldsrc', 'host' => '10.0.0.5', 'port' => 27015, 'description' => 'Fixture server', 'location' => 'Sofia', 'is_published' => '1']);
+        $response = $this->actingAs($administrator)->post('/admin/servers', ['server_category_id' => $category->id, 'name' => 'Test Arena', 'slug' => '', 'game' => 'cs16', 'protocol' => 'goldsrc', 'host' => '10.0.0.5', 'port' => 27015, 'description' => 'Fixture server', 'location' => 'Sofia', 'is_published' => '1']);
         $response->assertRedirect('/admin/servers');
         $this->assertDatabaseHas('game_servers', ['slug' => 'test-arena', 'is_published' => true]);
     }
