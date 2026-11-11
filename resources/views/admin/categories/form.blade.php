@@ -8,7 +8,7 @@
     <form class="form panel" method="post" action="{{ $category->exists ? route('admin.categories.update', $category) : route('admin.categories.store') }}">
         @csrf @if($category->exists) @method('put') @endif
         <div class="form-grid">
-            <label>Slug <small>{{ __('ui.admin.slug_help') }}</small><input name="slug" value="{{ old('slug', $category->slug) }}" data-slug-target></label>
+            <label>{{ __('ui.admin.slug') }} <small>{{ __('ui.admin.slug_help') }}</small><input name="slug" value="{{ old('slug', $category->slug) }}" data-slug-target></label>
             <label>{{ __('ui.admin.accent_color') }}<input type="color" name="accent_color" value="{{ old('accent_color', $category->accent_color ?? '#f4b942') }}" required></label>
         </div>
         @foreach(config('localization.locales') as $locale => $language)

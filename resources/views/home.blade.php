@@ -28,6 +28,6 @@
 </section>
 <section id="news" class="section shell">
     <div class="heading"><div><span class="eyebrow">{{ __('ui.home.intel_feed') }}</span><h2>{{ __('ui.home.latest_news') }}</h2></div><a href="{{ route('news.index') }}">{{ __('ui.home.archive') }}</a></div>
-    <div class="news-grid">@foreach($news as $post)<article><time>{{ $post->published_at->format('d.m.Y') }}</time><h3><a href="{{ route('news.show', $post) }}">{{ $post->title }}</a></h3><p>{{ $post->excerpt }}</p><a href="{{ route('news.show', $post) }}">{{ __('ui.home.read') }}</a></article>@endforeach</div>
+    <div class="news-grid">@foreach($news as $post)<article><time>{{ $post->published_at->format('d.m.Y') }}</time><h3><a href="{{ route('news.show', $post) }}">{{ $post->localized('title') }}</a></h3><p>{{ $post->localized('excerpt') }}</p><a href="{{ route('news.show', $post) }}">{{ __('ui.home.read') }}</a></article>@endforeach</div>
 </section>
 @endsection

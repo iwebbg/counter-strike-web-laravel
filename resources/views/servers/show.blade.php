@@ -2,7 +2,7 @@
 @section('title', $server->name)
 @section('content')
 <section class="server-hero shell">
-    <div><a href="{{ route('servers.index') }}">{{ __('ui.servers.back') }}</a><p><span class="tag">{{ strtoupper($server->game) }}</span> <span class="status {{ $server->is_online ? 'on' : 'off' }}"><i></i>{{ $server->is_online ? __('ui.common.online') : __('ui.common.offline') }}</span></p><h1>{{ $server->name }}</h1><p>{{ $server->description }}</p><p class="buttons"><a class="button" href="steam://connect/{{ $server->address() }}">{{ __('ui.servers.connect') }}</a><button class="button ghost" data-copy="{{ $server->address() }}">{{ __('ui.servers.copy_ip') }}</button></p></div>
+    <div><a href="{{ route('servers.index') }}">{{ __('ui.servers.back') }}</a><p><span class="tag">{{ strtoupper($server->game) }}</span> <span class="status {{ $server->is_online ? 'on' : 'off' }}"><i></i>{{ $server->is_online ? __('ui.common.online') : __('ui.common.offline') }}</span></p><h1>{{ $server->name }}</h1><p>{{ $server->localizedDescription() }}</p><p class="buttons"><a class="button" href="steam://connect/{{ $server->address() }}">{{ __('ui.servers.connect') }}</a><button class="button ghost" data-copy="{{ $server->address() }}">{{ __('ui.servers.copy_ip') }}</button></p></div>
     <div class="map-panel"><small>{{ __('ui.common.current_map') }}</small><b>{{ $server->current_map ?? __('ui.common.unknown') }}</b><span>{{ $server->location }}</span></div>
 </section>
 <section class="shell telemetry">

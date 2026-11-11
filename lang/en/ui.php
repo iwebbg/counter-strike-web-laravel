@@ -8,7 +8,7 @@ return [
         'online' => 'ONLINE', 'offline' => 'OFFLINE', 'live' => 'LIVE', 'current_map' => 'CURRENT MAP',
         'unknown' => 'UNKNOWN', 'players' => 'PLAYERS', 'ping' => 'PING', 'details' => 'Details',
         'address' => 'ADDRESS', 'updated' => 'UPDATED', 'no_data' => 'no data', 'status' => 'Status',
-        'map' => 'Map', 'game' => 'Game', 'name' => 'Name', 'edit' => 'Edit', 'location' => 'Location', 'language' => 'Language',
+        'map' => 'Map', 'game' => 'Game', 'name' => 'Name', 'edit' => 'Edit', 'delete' => 'Delete', 'location' => 'Location', 'language' => 'Language', 'copied' => 'COPIED ✓',
     ],
     'home' => [
         'title' => 'Home', 'eyebrow' => 'BALKAN COUNTER-STRIKE COMMUNITY',
@@ -23,7 +23,7 @@ return [
     ],
     'servers' => [
         'title' => 'Servers', 'browser' => 'SERVER BROWSER', 'choose' => 'CHOOSE YOUR', 'arena' => 'ARENA',
-        'intro' => 'Live status and the latest data from every FragZone server.', 'search' => 'Search servers...',
+        'intro' => 'Live status and the latest data from every listed server.', 'search' => 'Search servers...',
         'all_games' => 'All games', 'all_categories' => 'All categories', 'filter' => 'FILTER', 'none' => 'No servers found.',
         'back' => '← Servers', 'connect' => 'CONNECT WITH STEAM →', 'copy_ip' => 'COPY IP',
         'scoreboard' => 'LIVE SCOREBOARD', 'ranking' => 'PLAYERS BY FRAGS', 'visible' => ':visible OF :total VISIBLE',
@@ -52,5 +52,12 @@ return [
         'confirm_delete_category' => 'Are you sure you want to delete this category?', 'category_created' => 'Category added.',
         'category_updated' => 'Category updated.', 'category_deleted' => 'Category deleted.',
         'category_in_use' => 'The category cannot be deleted while it contains servers.',
+        'news_management' => 'NEWS MANAGEMENT', 'new_news' => 'NEW POST', 'edit_news' => 'EDIT POST',
+        'title' => 'Title', 'excerpt' => 'Excerpt', 'content' => 'Content', 'publication_date' => 'Publication date',
+        'draft' => 'Draft', 'editor_toolbar' => 'Editor toolbar', 'list' => 'List', 'link' => 'Link',
+        'link_prompt' => 'Enter the link URL', 'delete_news' => 'DELETE POST', 'confirm_delete_news' => 'Are you sure you want to delete this post?',
+        'news_created' => 'Post added.', 'news_updated' => 'Post updated.', 'news_deleted' => 'Post deleted.',
+        'host' => 'Host', 'port' => 'Port', 'delete_server' => 'DELETE SERVER', 'confirm_delete_server' => 'Are you sure you want to delete this server?',
+        'slug' => 'Slug',
     ],
 ];

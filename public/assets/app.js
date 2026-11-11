@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-copy]').forEach((button) => button.addEventListener('click', async () => {
         await navigator.clipboard.writeText(button.dataset.copy);
         const text = button.textContent;
-        button.textContent = 'КОПИРАНО ✓';
+        button.textContent = document.body.dataset.copySuccess;
         window.setTimeout(() => { button.textContent = text; }, 1200);
     }));
 
@@ -24,4 +24,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    document.querySelectorAll('[data-rich-editor]').forEach((editor) => {
+        const content = editor.querySelector('.editor-content');
+        const source = editor.querySelector('.editor-source');
+        const sync = () => { source.value = content.innerHTML.trim(); };
+
+        content.addEventListener('input', sync);
+        editor.closest('form')?.addEventListener('submit', sync);
+        editor.querySelectorAll('[data-editor-command]').forEach((button) => button.addEventListener('click', () => {
+            const command = button.dataset.editorCommand;
+            let value = button.dataset.editorValue ?? null;
+
+            if (command === 'createLink') {
+                value = window.prompt(editor.dataset.linkPrompt, 'https://');
+                if (! value) return;
+            }
+
+            content.focus();
+            document.execCommand(command, false, value);
+            sync();
+        }));
+    });
 });

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
     <script src="{{ asset('assets/app.js') }}" defer></script>
 </head>
-<body>
+<body data-copy-success="{{ __('ui.common.copied') }}">
 <div class="ambient a1"></div><div class="ambient a2"></div>
 <header class="site-header">
     <a class="brand" href="{{ route('home') }}"><span>{{ $siteSettings->site_abbreviation }}</span><b>{{ $siteSettings->brandPrefix() }}<em>{{ $siteSettings->brandAccent() }}</em><small>{{ $siteSettings->translated('network_label') }}</small></b></a>
@@ -42,7 +42,7 @@
 <footer>
     <div class="brand"><span>{{ $siteSettings->site_abbreviation }}</span><b>{{ $siteSettings->brandPrefix() }}<em>{{ $siteSettings->brandAccent() }}</em></b></div>
     <p>{{ $siteSettings->translated('footer_text') }}</p>
-    <div><a href="{{ route('servers.index') }}">{{ __('ui.nav.servers') }}</a> · <a href="{{ route('news.index') }}">{{ __('ui.nav.news') }}</a> · <a href="{{ route('admin.login') }}">Admin</a></div>
+    <div><a href="{{ route('servers.index') }}">{{ __('ui.nav.servers') }}</a> · <a href="{{ route('news.index') }}">{{ __('ui.nav.news') }}</a> · <a href="{{ route('admin.login') }}">{{ __('ui.nav.administration') }}</a></div>
 </footer>
 </body>
 </html>

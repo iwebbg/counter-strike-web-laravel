@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
 /** Represents an editorial news post. */
 class NewsPost extends Model
@@ -29,5 +30,13 @@ class NewsPost extends Model
         $locale ??= app()->getLocale();
 
         return (string) ($translations[$locale] ?? $translations[config('app.fallback_locale')] ?? $this->getAttribute($attribute) ?? '');
+    }
+
+    /** Returns safe rich text, preserving legacy plain-text posts. */
+    public function localizedBodyHtml(?string $locale = null): HtmlString
+    {
+        $body = $this->localized('body', $locale);
+
+        return new HtmlString($body === strip_tags($body) ? nl2br(e($body)) : $body);
     }
 }

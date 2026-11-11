@@ -51,14 +51,24 @@ class GameServerController
     {
         $server->delete();
 
-        return back()->with('status', __('ui.admin.deleted'));
+        return redirect()->route('admin.servers.index')->with('status', __('ui.admin.deleted'));
     }
 
     /** Validates and normalizes server form input. */
     private function validated(Request $request, ?GameServer $server = null): array
     {
-        $data = $request->validate(['server_category_id' => ['required', 'exists:server_categories,id'], 'name' => ['required', 'string', 'max:120'], 'slug' => ['nullable', 'alpha_dash', 'max:140', 'unique:game_servers,slug,'.($server?->id ?? 'NULL')], 'game' => ['required', 'in:cs16,csgo'], 'protocol' => ['required', 'in:goldsrc,source'], 'host' => ['required', 'string', 'max:253'], 'port' => ['required', 'integer', 'between:1,65535'], 'description' => ['nullable', 'string', 'max:3000'], 'location' => ['nullable', 'string', 'max:80']]);
+        $rules = ['server_category_id' => ['required', 'exists:server_categories,id'], 'name' => ['required', 'string', 'max:120'], 'slug' => ['nullable', 'alpha_dash', 'max:140', 'unique:game_servers,slug,'.($server?->id ?? 'NULL')], 'game' => ['required', 'in:cs16,csgo'], 'protocol' => ['required', 'in:goldsrc,source'], 'host' => ['required', 'string', 'max:253'], 'port' => ['required', 'integer', 'between:1,65535'], 'description' => ['nullable', 'string', 'max:3000'], 'location' => ['nullable', 'string', 'max:80']];
+        foreach (array_keys(config('localization.locales')) as $locale) {
+            $rules['description_translations.'.$locale] = ['nullable', 'string', 'max:3000'];
+        }
+
+        $data = $request->validate($rules);
         $data['slug'] = $data['slug'] ?: Str::slug($data['name']);
+        if (! empty($data['description_translations'])) {
+            $data['description'] = $data['description_translations']['bg'] ?? array_values($data['description_translations'])[0];
+        } elseif (isset($data['description'])) {
+            $data['description_translations'] = ['bg' => $data['description'], 'en' => $data['description']];
+        }
         $data['is_featured'] = $request->boolean('is_featured');
         $data['is_published'] = $request->boolean('is_published');
 
