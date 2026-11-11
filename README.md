@@ -48,3 +48,11 @@ Use `./docker/compose test` for PHPUnit. Never run `php artisan test` inside the
 ## Security notice
 
 Production installations must use `APP_ENV=production`, `APP_DEBUG=false`, unique database passwords and a generated `APP_KEY`. Do not run the demo seeder in production. Create the first production administrator interactively with `php artisan admin:create`.
+
+## Support the project
+
+If FragZone is useful to your server or community, you can support ongoing development through:
+
+- [Buy Me a Coffee](https://buymeacoffee.com/interweb.bg)
+- [Ko-fi](https://ko-fi.com/interwebltd)
+- [PayPal](https://paypal.me/interwebltd)
