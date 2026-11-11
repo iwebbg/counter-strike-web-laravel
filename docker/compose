@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+docker_directory="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+project_directory="$(dirname -- "$docker_directory")"
+test -f "$docker_directory/.env" || { echo "Copy docker/.env.example to docker/.env" >&2; exit 1; }
+test -f "$project_directory/.env" || { echo "Copy .env.example to .env" >&2; exit 1; }
+docker_environment="$(sed -n 's/^DOCKER_ENV=//p' "$docker_directory/.env" | tail -n 1)"
+case "$docker_environment" in
+  local) files=("$docker_directory/docker-compose.local.yaml");;
+  prod|production) files=("$docker_directory/docker-compose.prod.yaml");;
+  external) files=("$docker_directory/docker-compose.prod.yaml" "$docker_directory/docker-compose.external.yaml");;
+  *) echo "DOCKER_ENV must be local, production or external." >&2; exit 1;;
+esac
+if [ "${1:-}" = test ]; then
+  shift
+  files=("$docker_directory/docker-compose.test.yaml")
+  arguments=(--file "${files[0]}")
+  exec docker compose --project-directory "$docker_directory" --env-file "$project_directory/.env" --env-file "$docker_directory/.env" "${arguments[@]}" run --rm --build test composer test -- "$@"
+fi
+arguments=(); for file in "${files[@]}"; do arguments+=(--file "$file"); done
+exec docker compose --project-directory "$docker_directory" --env-file "$project_directory/.env" --env-file "$docker_directory/.env" "${arguments[@]}" "$@"

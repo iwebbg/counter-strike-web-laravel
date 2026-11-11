@@ -1,0 +1,32 @@
+name: fragzone-prod
+x-app: &app
+  build: {context: .., dockerfile: docker/php/Dockerfile, target: production}
+  restart: unless-stopped
+  env_file: [../.env]
+  environment: {APP_ENV: production, APP_DEBUG: "false", APP_URL: "https://${APP_DOMAIN}", DB_HOST: database, REDIS_HOST: redis, SESSION_SECURE_COOKIE: "true"}
+  volumes: [app-storage:/var/www/html/storage]
+  depends_on: {database: {condition: service_healthy}, redis: {condition: service_healthy}}
+  networks: [application]
+services:
+  app: {<<: *app}
+  queue: {<<: *app, environment: {APP_ENV: production, APP_DEBUG: "false", APP_URL: "https://${APP_DOMAIN}", DB_HOST: database, REDIS_HOST: redis, CONTAINER_ROLE: queue, AUTO_MIGRATE: "false"}}
+  scheduler: {<<: *app, environment: {APP_ENV: production, APP_DEBUG: "false", APP_URL: "https://${APP_DOMAIN}", DB_HOST: database, REDIS_HOST: redis, CONTAINER_ROLE: scheduler, AUTO_MIGRATE: "false"}}
+  nginx:
+    build: {context: .., dockerfile: docker/nginx/prod/Dockerfile}
+    container_name: ${NGINX_CONTAINER_NAME:-fragzone-nginx}
+    restart: unless-stopped
+    environment: {APP_DOMAIN: "${APP_DOMAIN}", NGINX_SSL_EMAIL: "webmaster@${APP_DOMAIN}"}
+    ports: ["80:80", "443:443"]
+    volumes: [certbot-www:/var/www/certbot, letsencrypt:/etc/letsencrypt, app-storage:/var/www/html/storage:ro]
+    depends_on: [app]
+    networks: [application]
+  database:
+    image: mariadb:11.8
+    restart: unless-stopped
+    environment: {MARIADB_DATABASE: "${DB_DATABASE}", MARIADB_USER: "${DB_USERNAME}", MARIADB_PASSWORD: "${DB_PASSWORD}", MARIADB_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"}
+    volumes: [database-data:/var/lib/mysql]
+    healthcheck: {test: [CMD, healthcheck.sh, --connect, --innodb_initialized], interval: 10s, timeout: 5s, retries: 10}
+    networks: [application]
+  redis: {image: redis:8-alpine, restart: unless-stopped, command: [redis-server, --appendonly, "yes"], volumes: [redis-data:/data], networks: [application]}
+networks: {application: {driver: bridge}}
+volumes: {app-storage: {}, certbot-www: {}, letsencrypt: {}, database-data: {}, redis-data: {}}

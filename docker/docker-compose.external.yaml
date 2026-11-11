@@ -1,0 +1,9 @@
+services:
+  nginx:
+    build: {context: .., dockerfile: docker/nginx/external/Dockerfile}
+    ports: !reset []
+    expose: ["80"]
+    environment: !reset {}
+    networks: {application: {}, external-proxy: {aliases: [fragzone-nginx]}}
+networks:
+  external-proxy: {name: "${EXTERNAL_DOCKER_NETWORK:-server1_net}", external: true}
