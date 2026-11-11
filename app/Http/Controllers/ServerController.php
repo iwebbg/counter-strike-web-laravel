@@ -13,7 +13,7 @@ class ServerController
     /** Shows filterable servers. */
     public function index(Request $request): View
     {
-        $servers = GameServer::published()->with('category')->when($request->filled('game'), fn ($query) => $query->where('game', $request->string('game')))->when($request->filled('category'), fn ($query) => $query->whereHas('category', fn ($category) => $category->where('slug', $request->string('category'))))->when($request->filled('q'), fn ($query) => $query->where('name', 'like', '%'.$request->string('q').'%'))->orderByDesc('is_online')->orderByDesc('current_players')->paginate(12)->withQueryString();
+        $servers = GameServer::published()->with('category')->when($request->filled('game'), fn ($query) => $query->where('game', $request->string('game')))->when($request->filled('category'), fn ($query) => $query->whereHas('category', fn ($category) => $category->where('slug', $request->string('category'))))->when($request->filled('q'), fn ($query) => $query->where('name', 'like', '%'.$request->string('q').'%'))->orderByDesc('is_featured')->orderByDesc('is_online')->orderByDesc('current_players')->paginate(12)->withQueryString();
 
         return view('servers.index', ['servers' => $servers, 'categories' => ServerCategory::orderBy('name')->get()]);
     }

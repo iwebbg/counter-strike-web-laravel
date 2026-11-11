@@ -1,5 +1,5 @@
-<article class="server-card">
-    <div class="card-top"><span class="tag">{{ $server->game === 'cs16' ? 'CS 1.6' : 'CS:GO' }}</span><span class="status {{ $server->is_online ? 'on' : 'off' }}"><i></i>{{ $server->is_online ? __('ui.common.online') : __('ui.common.offline') }}</span></div>
+<article @class(['server-card', 'is-featured' => $server->is_featured])>
+    <div class="card-top"><div class="card-badges"><span class="tag">{{ $server->game === 'cs16' ? 'CS 1.6' : 'CS:GO' }}</span>@if($server->is_featured)<span class="featured-tag">★ {{ __('ui.servers.featured') }}</span>@endif</div><span class="status {{ $server->is_online ? 'on' : 'off' }}"><i></i>{{ $server->is_online ? __('ui.common.online') : __('ui.common.offline') }}</span></div>
     <div class="map"><small>{{ __('ui.common.current_map') }}</small><b>{{ strtoupper($server->current_map ?? __('ui.common.unknown')) }}</b><span>{{ $server->category->localizedName() }}</span></div>
     <div class="card-body">
         <h3><a href="{{ route('servers.show', $server) }}">{{ $server->name }}</a></h3>

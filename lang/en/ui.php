@@ -24,7 +24,7 @@ return [
     'servers' => [
         'title' => 'Servers', 'browser' => 'SERVER BROWSER', 'choose' => 'CHOOSE YOUR', 'arena' => 'ARENA',
         'intro' => 'Live status and the latest data from every listed server.', 'search' => 'Search servers...',
-        'all_games' => 'All games', 'all_categories' => 'All categories', 'filter' => 'FILTER', 'none' => 'No servers found.',
+        'all_games' => 'All games', 'all_categories' => 'All categories', 'filter' => 'FILTER', 'none' => 'No servers found.', 'featured' => 'FEATURED',
         'back' => '← Servers', 'connect' => 'CONNECT WITH STEAM →', 'copy_ip' => 'COPY IP',
         'scoreboard' => 'LIVE SCOREBOARD', 'ranking' => 'PLAYERS BY FRAGS', 'visible' => ':visible OF :total VISIBLE',
         'player' => 'PLAYER', 'frags' => 'FRAGS', 'time' => 'TIME ON SERVER',
@@ -32,6 +32,7 @@ return [
         'no_players' => 'Detailed player data is unavailable',
         'no_players_help' => 'The server may block A2S_PLAYER or its data has not been refreshed yet.',
     ],
+    'pagination' => ['label' => 'Pagination', 'previous' => '← PREVIOUS', 'next' => 'NEXT →'],
     'news' => ['title' => 'News', 'eyebrow' => 'COMMUNITY INTEL', 'heading' => 'NEWS AND', 'events' => 'EVENTS', 'all' => '← All news'],
     'auth' => ['title' => 'Administration', 'eyebrow' => 'SECURE ACCESS', 'heading' => 'ADMIN LOGIN', 'password' => 'Password', 'login' => 'LOG IN →', 'invalid' => 'Invalid login credentials.'],
     'admin' => [

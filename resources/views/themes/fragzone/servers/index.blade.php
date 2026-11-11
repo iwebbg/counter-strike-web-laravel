@@ -10,6 +10,6 @@
         <button class="button">{{ __('ui.servers.filter') }}</button>
     </form>
     <div class="server-grid">@forelse($servers as $server)@include('components.server-card', ['server' => $server])@empty<p>{{ __('ui.servers.none') }}</p>@endforelse</div>
-    {{ $servers->links() }}
+    {{ $servers->links('vendor.pagination.fragzone') }}
 </section>
 @endsection

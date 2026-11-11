@@ -70,6 +70,46 @@ class PublicPortalTest extends TestCase
         $this->get('/servers?game=csgo')->assertOk()->assertSee('FragZone Retakes')->assertDontSee('FragZone Classic #1');
     }
 
+    /** Highlights featured servers and orders them before regular servers. */
+    public function test_server_directory_highlights_featured_servers_first(): void
+    {
+        GameServer::query()->update(['is_featured' => false]);
+        $featured = GameServer::where('slug', 'fragzone-classic')->firstOrFail();
+        $regular = GameServer::where('slug', 'fragzone-retakes')->firstOrFail();
+
+        $featured->update(['name' => 'Featured Low Population', 'is_featured' => true, 'current_players' => 0]);
+        $regular->update(['name' => 'Regular Full Server', 'current_players' => 32]);
+
+        $this->get('/servers')
+            ->assertOk()
+            ->assertSee('class="server-card is-featured"', false)
+            ->assertSee(__('ui.servers.featured'))
+            ->assertSeeInOrder(['Featured Low Population', 'Regular Full Server']);
+    }
+
+    /** Paginates the server directory and keeps the custom navigation visible. */
+    public function test_server_directory_is_paginated(): void
+    {
+        $template = GameServer::where('slug', 'fragzone-classic')->firstOrFail();
+
+        foreach (range(1, 10) as $number) {
+            $server = $template->replicate();
+            $server->forceFill([
+                'name' => 'Pagination Server '.$number,
+                'slug' => 'pagination-server-'.$number,
+                'port' => 28000 + $number,
+                'is_featured' => false,
+            ])->save();
+        }
+
+        $this->get('/servers')
+            ->assertOk()
+            ->assertSee('class="pagination"', false)
+            ->assertSee('page=2', false);
+
+        $this->get('/servers?page=2')->assertOk();
+    }
+
     /** Opens a server through its public slug. */
     public function test_server_detail_shows_connection_address(): void
     {
