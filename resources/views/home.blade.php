@@ -1,15 +1,17 @@
 @extends('layouts.app')
 @section('title', __('ui.home.title'))
 @section('content')
-<section class="hero shell">
-    <div>
-        <span class="eyebrow"><i></i>{{ __('ui.home.eyebrow') }}</span>
-        <h1>{{ __('ui.home.hero_1') }}<br><em>{{ __('ui.home.hero_2') }}</em><br>{{ __('ui.home.hero_3') }}</h1>
-        <p>{{ __('ui.home.intro') }}</p>
-        <p class="buttons"><a class="button" href="{{ route('servers.index') }}">{{ __('ui.home.browse') }}</a><a class="button ghost" href="#news">{{ __('ui.home.latest_news') }}</a></p>
-    </div>
-    <div class="radar"><div></div><b>{{ $servers->where('is_online', true)->sum('current_players') }}<small>{{ __('ui.home.players_online') }}</small></b></div>
-</section>
+<div class="home-hero">
+    <section class="hero shell">
+        <div>
+            <span class="eyebrow"><i></i>{{ __('ui.home.eyebrow') }}</span>
+            <h1>{{ __('ui.home.hero_1') }}<br><em>{{ __('ui.home.hero_2') }}</em><br>{{ __('ui.home.hero_3') }}</h1>
+            <p>{{ __('ui.home.intro') }}</p>
+            <p class="buttons"><a class="button" href="{{ route('servers.index') }}">{{ __('ui.home.browse') }}</a><a class="button ghost" href="#news">{{ __('ui.home.latest_news') }}</a></p>
+        </div>
+        <div class="radar"><div></div><b>{{ $servers->where('is_online', true)->sum('current_players') }}<small>{{ __('ui.home.players_online') }}</small></b></div>
+    </section>
+</div>
 <section class="strip">
     <div><b>{{ $servers->where('is_online', true)->count() }}</b>{{ __('ui.home.live_servers') }}</div>
     <div><b>{{ $servers->sum('max_players') }}</b>{{ __('ui.home.total_slots') }}</div>
