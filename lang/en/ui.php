@@ -43,7 +43,7 @@ return [
         'created' => 'Server added.', 'updated' => 'Changes saved.', 'deleted' => 'Server deleted.',
         'navigation' => 'Administration navigation', 'seo_settings' => 'SEO & SETTINGS', 'logout' => 'LOG OUT',
         'branding_and_seo' => 'BRANDING & OPTIMIZATION', 'branding' => 'Branding', 'site_name' => 'Site name',
-        'site_abbreviation' => 'Abbreviation', 'network_label' => 'Logo subtitle', 'meta_title' => 'SEO title',
+        'site_abbreviation' => 'Abbreviation', 'theme' => 'Active theme', 'theme_help' => 'Themes are discovered in resources/views/themes.', 'network_label' => 'Logo subtitle', 'meta_title' => 'SEO title',
         'meta_description' => 'Meta description', 'meta_keywords' => 'Keywords', 'hero_eyebrow' => 'Hero eyebrow',
         'hero_primary' => 'Primary slogan', 'hero_accent' => 'Accent slogan', 'home_description' => 'Homepage description',
         'footer_text' => 'Footer text', 'settings_saved' => 'Settings saved.', 'language_content' => 'Language content',

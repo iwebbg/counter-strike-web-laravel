@@ -28,6 +28,7 @@ Open `http://localhost`. The local seed creates `admin@fragzone.local` with pass
 - [Docker installation and production deployment](docs/installation.md)
 - [LAMP, Apache and cPanel installation](docs/installation-manual.md)
 - [Environment configuration reference](docs/configuration.md)
+- [Blade theme development](docs/themes.md)
 - [Testing and database-isolation rules](docs/testing.md)
 - [Product concept](docs/concept.md)
 - [Architecture](docs/architecture.md)

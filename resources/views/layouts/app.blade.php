@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
     <script src="{{ asset('assets/app.js') }}" defer></script>
 </head>
-<body data-copy-success="{{ __('ui.common.copied') }}">
+<body data-theme="{{ $activeTheme['slug'] }}" data-copy-success="{{ __('ui.common.copied') }}">
 <div class="ambient a1"></div><div class="ambient a2"></div>
 <header class="site-header">
     <a class="brand" href="{{ route('home') }}"><span>{{ $siteSettings->site_abbreviation }}</span><b>{{ $siteSettings->brandPrefix() }}<em>{{ $siteSettings->brandAccent() }}</em><small>{{ $siteSettings->translated('network_label') }}</small></b></a>

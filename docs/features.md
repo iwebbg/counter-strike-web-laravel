@@ -41,6 +41,7 @@ Valve `A2S_PLAYER` does not include CT/T membership. Team separation requires a 
 - Branding and localized SEO settings: identity, logo subtitle, metadata, keywords, homepage copy and footer.
 - Reusable language tabs that open the locale containing a validation error.
 - Interactive `admin:create` command for first-administrator provisioning.
+- Directory-based Blade themes with core fallback and administration selection.
 
 ## Localization and operations
 

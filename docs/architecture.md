@@ -8,6 +8,10 @@
 - Redis 8 for cache, queues and sessions
 - Nginx/PHP-FPM containers, with local, automatic Let's Encrypt production, and external proxy modes
 
+## Theme boundary
+
+Public themes are Blade-only overrides discovered under `resources/views/themes/<slug>`. The active slug is stored in `site_settings`, validated against installed directories and applied by web middleware before view rendering. Laravel searches the active theme first and falls back to core `resources/views`, so themes can replace individual pages without copying controllers, models or business logic. Administration always uses core views to preserve operator access.
+
 ## Domain model
 
 - `users`: administration identities with an `is_admin` capability flag.

@@ -25,7 +25,7 @@ class AdminSiteSettingsTest extends TestCase
     {
         $administrator = User::where('email', 'admin@fragzone.local')->firstOrFail();
         $settings = SiteSetting::query()->firstOrFail();
-        $payload = $settings->only(['site_name', 'site_abbreviation', 'network_label', 'meta_title', 'meta_description', 'meta_keywords', 'hero_eyebrow', 'hero_primary', 'hero_accent', 'home_description', 'footer_text']);
+        $payload = $settings->only(['site_name', 'site_abbreviation', 'theme_slug', 'network_label', 'meta_title', 'meta_description', 'meta_keywords', 'hero_eyebrow', 'hero_primary', 'hero_accent', 'home_description', 'footer_text']);
         $payload['site_name'] = 'StrikeHub';
         $payload['site_abbreviation'] = 'SH';
         $payload['meta_description']['bg'] = 'Ново SEO описание.';
@@ -33,6 +33,8 @@ class AdminSiteSettingsTest extends TestCase
         $this->actingAs($administrator)->get('/admin/settings')
             ->assertOk()
             ->assertSee('data-locale-tabs', false)
+            ->assertSee('name="theme_slug"', false)
+            ->assertSee('FragZone Core')
             ->assertSee('data-locale-panel="bg"', false)
             ->assertSee('data-locale-panel="en"', false);
 
@@ -41,7 +43,21 @@ class AdminSiteSettingsTest extends TestCase
             ->assertSessionHas('status');
 
         $this->assertDatabaseHas('site_settings', ['site_name' => 'StrikeHub', 'site_abbreviation' => 'SH']);
-        $this->get('/')->assertOk()->assertSee('StrikeHub')->assertSee('Ново SEO описание.');
+        $this->get('/')->assertOk()->assertSee('StrikeHub')->assertSee('Ново SEO описание.')->assertSee('data-theme="fragzone"', false);
+    }
+
+    /** Rejects a theme that is not installed on disk. */
+    public function test_administrator_cannot_select_an_unknown_theme(): void
+    {
+        $administrator = User::where('email', 'admin@fragzone.local')->firstOrFail();
+        $settings = SiteSetting::query()->firstOrFail();
+        $payload = $settings->only(['site_name', 'site_abbreviation', 'theme_slug', 'network_label', 'meta_title', 'meta_description', 'meta_keywords', 'hero_eyebrow', 'hero_primary', 'hero_accent', 'home_description', 'footer_text']);
+        $payload['theme_slug'] = 'missing-theme';
+
+        $this->actingAs($administrator)->put('/admin/settings', $payload)
+            ->assertSessionHasErrors('theme_slug');
+
+        $this->assertSame('fragzone', $settings->fresh()->theme_slug);
     }
 
     /** Prevents anonymous visitors from opening site settings. */

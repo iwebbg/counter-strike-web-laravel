@@ -11,6 +11,7 @@
         <div class="form-grid">
             <label>{{ __('ui.admin.site_name') }}<input name="site_name" value="{{ old('site_name', $settings->site_name) }}" required></label>
             <label>{{ __('ui.admin.site_abbreviation') }}<input name="site_abbreviation" value="{{ old('site_abbreviation', $settings->site_abbreviation) }}" required></label>
+            <label class="wide">{{ __('ui.admin.theme') }}<select name="theme_slug" required>@foreach($themes as $theme)<option value="{{ $theme['slug'] }}" @selected(old('theme_slug', $settings->theme_slug) === $theme['slug'])>{{ $theme['name'] }}</option>@endforeach</select><small>{{ __('ui.admin.theme_help') }}</small></label>
         </div>
         @php
             $activeLocale = array_key_exists(app()->getLocale(), config('localization.locales')) ? app()->getLocale() : array_key_first(config('localization.locales'));

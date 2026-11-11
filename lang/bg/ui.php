@@ -43,7 +43,7 @@ return [
         'created' => 'Сървърът е добавен.', 'updated' => 'Промените са запазени.', 'deleted' => 'Сървърът е изтрит.',
         'navigation' => 'Административна навигация', 'seo_settings' => 'SEO И НАСТРОЙКИ', 'logout' => 'ИЗХОД',
         'branding_and_seo' => 'БРАНД И ОПТИМИЗАЦИЯ', 'branding' => 'Бранд', 'site_name' => 'Име на сайта',
-        'site_abbreviation' => 'Абревиатура', 'network_label' => 'Текст под логото', 'meta_title' => 'SEO заглавие',
+        'site_abbreviation' => 'Абревиатура', 'theme' => 'Активна тема', 'theme_help' => 'Темите се зареждат от resources/views/themes.', 'network_label' => 'Текст под логото', 'meta_title' => 'SEO заглавие',
         'meta_description' => 'Мета описание', 'meta_keywords' => 'Ключови думи', 'hero_eyebrow' => 'Надпис над слогана',
         'hero_primary' => 'Основен слоган', 'hero_accent' => 'Акцентиран слоган', 'home_description' => 'Описание на началната страница',
         'footer_text' => 'Текст в долната част', 'settings_saved' => 'Настройките са запазени.', 'language_content' => 'Езиково съдържание',

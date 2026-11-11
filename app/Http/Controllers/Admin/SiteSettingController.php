@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\SiteSetting;
+use App\Themes\ThemeManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /** Manages global branding, homepage copy and SEO metadata. */
 class SiteSettingController
 {
+    public function __construct(private readonly ThemeManager $themes) {}
+
     /** Shows the settings form. */
     public function edit(): View
     {
-        return view('admin.settings.edit', ['settings' => SiteSetting::query()->firstOrFail()]);
+        return view('admin.settings.edit', [
+            'settings' => SiteSetting::query()->firstOrFail(),
+            'themes' => $this->themes->available(),
+        ]);
     }
 
     /** Updates the singleton settings row. */
@@ -22,6 +29,7 @@ class SiteSettingController
         $rules = [
             'site_name' => ['required', 'string', 'max:80'],
             'site_abbreviation' => ['required', 'string', 'max:12'],
+            'theme_slug' => ['required', Rule::in(array_keys($this->themes->available()))],
         ];
 
         foreach (array_keys(config('localization.locales')) as $locale) {
