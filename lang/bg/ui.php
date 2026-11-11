@@ -4,6 +4,7 @@ return [
     'meta_description' => 'Counter-Strike 1.6 и CS:GO сървъри, статус на живо, карти и играчи.',
     'nav' => ['home' => 'Начало', 'servers' => 'Сървъри', 'news' => 'Новини', 'administration' => 'Администрация', 'menu' => 'Меню'],
     'footer_tagline' => 'Играй честно. Уважавай отбора. Направи следващия рунд незабравим.',
+    'footer' => ['created_by' => 'Уебсайтът е създаден от'],
     'common' => [
         'online' => 'ОНЛАЙН', 'offline' => 'ОФЛАЙН', 'live' => 'НА ЖИВО', 'current_map' => 'ТЕКУЩА КАРТА',
         'unknown' => 'НЕИЗВЕСТНА', 'players' => 'ИГРАЧИ', 'ping' => 'ПИНГ', 'details' => 'Детайли',

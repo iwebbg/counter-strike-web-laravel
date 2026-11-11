@@ -40,7 +40,7 @@
 <main>@yield('content')</main>
 <footer>
     <div class="brand"><span>{{ $siteSettings->site_abbreviation }}</span><b>{{ $siteSettings->brandPrefix() }}<em>{{ $siteSettings->brandAccent() }}</em></b></div>
-    <p>{{ $siteSettings->translated('footer_text') }}</p>
+    <div class="footer-copy"><p>{{ $siteSettings->translated('footer_text') }}</p><p class="footer-credit">{{ __('ui.footer.created_by') }} <a href="https://interweb.bg" target="_blank" rel="noopener noreferrer">InterWeb Ltd.</a></p></div>
     <div><a href="{{ route('servers.index') }}">{{ __('ui.nav.servers') }}</a> · <a href="{{ route('news.index') }}">{{ __('ui.nav.news') }}</a></div>
 </footer>
 </body>
