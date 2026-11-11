@@ -18,4 +18,8 @@ if [ "${1:-}" = test ]; then
   exec docker compose --project-directory "$docker_directory" --env-file "$project_directory/.env" --env-file "$docker_directory/.env" "${arguments[@]}" run --rm --build test composer test -- "$@"
 fi
 arguments=(); for file in "${files[@]}"; do arguments+=(--file "$file"); done
+if [ "${1:-}" = artisan ]; then
+  shift
+  exec docker compose --project-directory "$docker_directory" --env-file "$project_directory/.env" --env-file "$docker_directory/.env" "${arguments[@]}" exec -T --user www-data app php artisan "$@"
+fi
 exec docker compose --project-directory "$docker_directory" --env-file "$project_directory/.env" --env-file "$docker_directory/.env" "${arguments[@]}" "$@"

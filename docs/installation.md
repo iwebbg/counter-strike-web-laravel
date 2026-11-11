@@ -133,7 +133,7 @@ EXTERNAL_DOCKER_NETWORK=server1_net
 ./docker/compose ps
 ./docker/compose exec -T app php artisan migrate --force
 ./docker/compose exec app php artisan admin:create
-./docker/compose exec -T app php artisan optimize
+./docker/compose artisan optimize
 ```
 
 Do not run `db:seed` in production. `admin:create` requires a unique email and a password of at least 12 characters with uppercase/lowercase letters, a number and a symbol.
@@ -182,7 +182,7 @@ git fetch origin --tags --prune
 git pull --ff-only origin main
 ./docker/compose up --detach --build
 ./docker/compose exec -T app php artisan migrate --force
-./docker/compose exec -T app php artisan optimize
+./docker/compose artisan optimize
 ```
 
 For tag deployments, switch to the selected newer tag instead of pulling `main`.

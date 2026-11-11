@@ -7,14 +7,19 @@ cp .env.example .env
 cp docker/.env.example docker/.env
 ```
 
-Never commit real secrets. After production changes, clear and rebuild configuration:
+Never commit real secrets. After production changes, clear and rebuild configuration. For a manual/LAMP installation run:
 
 ```bash
 php artisan optimize:clear
 php artisan optimize
 ```
 
-Inside Docker, prefix Artisan commands with `./docker/compose exec -T app`.
+Inside Docker use the application-user helper, which prevents root-owned cache files:
+
+```bash
+./docker/compose artisan optimize:clear
+./docker/compose artisan optimize
+```
 
 ## Application
 

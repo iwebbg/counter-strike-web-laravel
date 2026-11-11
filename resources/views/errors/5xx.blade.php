@@ -1,0 +1,5 @@
+@extends('errors.layout')
+@section('title', __('ui.errors.5xx.title'))
+@section('code', $exception->getStatusCode())
+@section('message', __('ui.errors.5xx.message'))
+@section('description', __('ui.errors.5xx.description'))
