@@ -47,5 +47,10 @@ return [
         'meta_description' => 'Meta description', 'meta_keywords' => 'Keywords', 'hero_eyebrow' => 'Hero eyebrow',
         'hero_primary' => 'Primary slogan', 'hero_accent' => 'Accent slogan', 'home_description' => 'Homepage description',
         'footer_text' => 'Footer text', 'settings_saved' => 'Settings saved.',
+        'categories' => 'CATEGORIES', 'category_management' => 'CATEGORY MANAGEMENT', 'new_category' => 'NEW CATEGORY',
+        'edit_category' => 'EDIT CATEGORY', 'accent_color' => 'Accent color', 'delete_category' => 'DELETE CATEGORY',
+        'confirm_delete_category' => 'Are you sure you want to delete this category?', 'category_created' => 'Category added.',
+        'category_updated' => 'Category updated.', 'category_deleted' => 'Category deleted.',
+        'category_in_use' => 'The category cannot be deleted while it contains servers.',
     ],
 ];

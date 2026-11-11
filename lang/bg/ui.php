@@ -47,5 +47,10 @@ return [
         'meta_description' => 'Мета описание', 'meta_keywords' => 'Ключови думи', 'hero_eyebrow' => 'Надпис над слогана',
         'hero_primary' => 'Основен слоган', 'hero_accent' => 'Акцентиран слоган', 'home_description' => 'Описание на началната страница',
         'footer_text' => 'Текст във footer-а', 'settings_saved' => 'Настройките са запазени.',
+        'categories' => 'КАТЕГОРИИ', 'category_management' => 'УПРАВЛЕНИЕ НА КАТЕГОРИИ', 'new_category' => 'НОВА КАТЕГОРИЯ',
+        'edit_category' => 'РЕДАКЦИЯ НА КАТЕГОРИЯ', 'accent_color' => 'Акцентен цвят', 'delete_category' => 'ИЗТРИЙ КАТЕГОРИЯТА',
+        'confirm_delete_category' => 'Сигурни ли сте, че искате да изтриете категорията?', 'category_created' => 'Категорията е добавена.',
+        'category_updated' => 'Категорията е обновена.', 'category_deleted' => 'Категорията е изтрита.',
+        'category_in_use' => 'Категорията не може да бъде изтрита, защото съдържа сървъри.',
     ],
 ];

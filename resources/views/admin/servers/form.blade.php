@@ -9,7 +9,7 @@
         <div class="form-grid">
             <label>{{ __('ui.common.name') }}<input name="name" value="{{ old('name', $server->name) }}" data-slug-source required></label>
             <label>Slug <small>{{ __('ui.admin.slug_help') }}</small><input name="slug" value="{{ old('slug', $server->slug) }}" data-slug-target placeholder="{{ __('ui.admin.slug_placeholder') }}"></label>
-            <label>{{ __('ui.admin.category') }}<select name="server_category_id">@foreach($categories as $category)<option value="{{ $category->id }}" @selected(old('server_category_id', $server->server_category_id) == $category->id)>{{ $category->name }}</option>@endforeach</select></label>
+            <label>{{ __('ui.admin.category') }}<select name="server_category_id">@foreach($categories as $category)<option value="{{ $category->id }}" @selected(old('server_category_id', $server->server_category_id) == $category->id)>{{ $category->localizedName() }}</option>@endforeach</select></label>
             <label>{{ __('ui.common.game') }}<select name="game"><option value="cs16" @selected(old('game', $server->game) === 'cs16')>CS 1.6</option><option value="csgo" @selected(old('game', $server->game) === 'csgo')>CS:GO</option></select></label>
             <label>{{ __('ui.admin.protocol') }}<select name="protocol"><option value="goldsrc" @selected(old('protocol', $server->protocol) === 'goldsrc')>GoldSrc</option><option value="source" @selected(old('protocol', $server->protocol) === 'source')>Source</option></select></label>
             <label>{{ __('ui.common.location') }}<input name="location" value="{{ old('location', $server->location) }}"></label>

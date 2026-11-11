@@ -24,7 +24,7 @@
 </section>
 <section class="section shell">
     <div class="heading"><div><span class="eyebrow">{{ __('ui.home.find_mode') }}</span><h2>{{ __('ui.home.categories') }}</h2></div></div>
-    <div class="categories">@foreach($categories as $category)<a href="{{ route('servers.index', ['category' => $category->slug]) }}" style="--accent:{{ $category->accent_color }}"><span>0{{ $loop->iteration }}</span><h3>{{ $category->name }}</h3><p>{{ $category->description }}</p><b>{{ trans_choice('ui.home.servers_count', $category->servers_count, ['count' => $category->servers_count]) }}</b></a>@endforeach</div>
+    <div class="categories">@foreach($categories as $category)<a href="{{ route('servers.index', ['category' => $category->slug]) }}" style="--accent:{{ $category->accent_color }}"><span>0{{ $loop->iteration }}</span><h3>{{ $category->localizedName() }}</h3><p>{{ $category->localizedDescription() }}</p><b>{{ trans_choice('ui.home.servers_count', $category->servers_count, ['count' => $category->servers_count]) }}</b></a>@endforeach</div>
 </section>
 <section id="news" class="section shell">
     <div class="heading"><div><span class="eyebrow">{{ __('ui.home.intel_feed') }}</span><h2>{{ __('ui.home.latest_news') }}</h2></div><a href="{{ route('news.index') }}">{{ __('ui.home.archive') }}</a></div>

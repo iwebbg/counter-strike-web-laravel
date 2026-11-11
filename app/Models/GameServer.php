@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /** Stores a community game server and its last known telemetry. */
 class GameServer extends Model
 {
-    protected $fillable = ['server_category_id', 'name', 'slug', 'game', 'protocol', 'host', 'port', 'description', 'location', 'is_featured', 'is_published', 'is_online', 'current_map', 'current_players', 'max_players', 'last_ping_ms', 'last_queried_at', 'last_query_error'];
+    protected $fillable = ['server_category_id', 'name', 'slug', 'game', 'protocol', 'host', 'port', 'description', 'description_translations', 'location', 'is_featured', 'is_published', 'is_online', 'current_map', 'current_players', 'max_players', 'last_ping_ms', 'last_queried_at', 'last_query_error'];
 
     /** Defines model casts. */
     protected function casts(): array
     {
-        return ['is_featured' => 'boolean', 'is_published' => 'boolean', 'is_online' => 'boolean', 'last_queried_at' => 'datetime'];
+        return ['description_translations' => 'array', 'is_featured' => 'boolean', 'is_published' => 'boolean', 'is_online' => 'boolean', 'last_queried_at' => 'datetime'];
     }
 
     /** Limits a query to public servers. */
@@ -40,5 +40,14 @@ class GameServer extends Model
     public function address(): string
     {
         return $this->host.':'.$this->port;
+    }
+
+    /** Returns the server description for the active locale. */
+    public function localizedDescription(?string $locale = null): string
+    {
+        $translations = $this->description_translations ?? [];
+        $locale ??= app()->getLocale();
+
+        return (string) ($translations[$locale] ?? $translations[config('app.fallback_locale')] ?? $this->description ?? '');
     }
 }

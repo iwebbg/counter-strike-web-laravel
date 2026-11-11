@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GameServerController;
+use App\Http\Controllers\Admin\ServerCategoryController;
 use App\Http\Controllers\Admin\SessionController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\HomeController;
@@ -24,6 +25,7 @@ Route::middleware('guest')->group(function (): void {
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function (): void {
     Route::get('/', DashboardController::class)->name('dashboard');
     Route::resource('servers', GameServerController::class)->except('show');
+    Route::resource('categories', ServerCategoryController::class)->except('show');
     Route::get('/settings', [SiteSettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');

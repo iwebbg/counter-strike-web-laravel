@@ -1,6 +1,6 @@
 <article class="server-card">
     <div class="card-top"><span class="tag">{{ $server->game === 'cs16' ? 'CS 1.6' : 'CS:GO' }}</span><span class="status {{ $server->is_online ? 'on' : 'off' }}"><i></i>{{ $server->is_online ? __('ui.common.online') : __('ui.common.offline') }}</span></div>
-    <div class="map"><small>{{ __('ui.common.current_map') }}</small><b>{{ strtoupper($server->current_map ?? __('ui.common.unknown')) }}</b><span>{{ $server->category->name }}</span></div>
+    <div class="map"><small>{{ __('ui.common.current_map') }}</small><b>{{ strtoupper($server->current_map ?? __('ui.common.unknown')) }}</b><span>{{ $server->category->localizedName() }}</span></div>
     <div class="card-body">
         <h3><a href="{{ route('servers.show', $server) }}">{{ $server->name }}</a></h3>
         <button class="copy" data-copy="{{ $server->address() }}">{{ $server->address() }} ⧉</button>
