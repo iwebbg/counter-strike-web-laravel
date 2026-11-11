@@ -2,6 +2,6 @@ name: fragzone-test
 services:
   test:
     build: {context: .., dockerfile: docker/php/Dockerfile, target: testing}
-    environment: {APP_ENV: testing, APP_DEBUG: "false", DB_CONNECTION: sqlite, DB_DATABASE: ":memory:", CACHE_STORE: array, SESSION_DRIVER: array, QUEUE_CONNECTION: sync}
+    environment: {APP_ENV: testing, APP_DEBUG: "false", APP_KEY: "base64:2KJqmObHk3h8+Uj4U8I4uWyM4jZd3zcUVhI2IzZzGUE=", DB_CONNECTION: sqlite, DB_DATABASE: ":memory:", CACHE_STORE: array, SESSION_DRIVER: array, QUEUE_CONNECTION: sync}
     networks: [test]
 networks: {test: {driver: bridge}}
