@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Middleware\EnsureAdministrator;
 use App\Http\Middleware\ApplyTheme;
+use App\Http\Middleware\EnsureAdministrator;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\ShareSiteSettings;
 use Illuminate\Foundation\Application;

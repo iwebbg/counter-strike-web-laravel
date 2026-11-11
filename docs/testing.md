@@ -1,5 +1,15 @@
 # Testing
 
+## Continuous integration
+
+GitHub Actions runs Composer validation, Laravel Pint and the complete PHPUnit
+suite for pull requests and pushes to `develop` and `main`. Pull requests into
+`main` must originate from the repository's `develop` branch. All other work
+targets `develop` through a focused feature or fix branch.
+
+`@iwebbg` is the sole code owner. Both protected branches require a code-owner
+review and the `Branch policy` and `Backend` status checks before merging.
+
 FragZone's PHPUnit suite runs in a disposable Docker service with SQLite in memory. It must remain isolated from the long-running MariaDB container.
 
 ## Full suite
