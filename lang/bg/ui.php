@@ -41,5 +41,11 @@ return [
         'slug_help' => 'генерира се автоматично', 'slug_placeholder' => 'автоматично-от-името', 'category' => 'Категория',
         'protocol' => 'Протокол', 'description' => 'Описание', 'featured' => 'Featured', 'published' => 'Публикуван', 'save' => 'ЗАПАЗИ →',
         'created' => 'Сървърът е добавен.', 'updated' => 'Промените са запазени.', 'deleted' => 'Сървърът е изтрит.',
+        'navigation' => 'Административна навигация', 'seo_settings' => 'SEO И НАСТРОЙКИ', 'logout' => 'ИЗХОД',
+        'branding_and_seo' => 'БРАНД И ОПТИМИЗАЦИЯ', 'branding' => 'Бранд', 'site_name' => 'Име на сайта',
+        'site_abbreviation' => 'Абревиатура', 'network_label' => 'Текст под логото', 'meta_title' => 'SEO заглавие',
+        'meta_description' => 'Мета описание', 'meta_keywords' => 'Ключови думи', 'hero_eyebrow' => 'Надпис над слогана',
+        'hero_primary' => 'Основен слоган', 'hero_accent' => 'Акцентиран слоган', 'home_description' => 'Описание на началната страница',
+        'footer_text' => 'Текст във footer-а', 'settings_saved' => 'Настройките са запазени.',
     ],
 ];

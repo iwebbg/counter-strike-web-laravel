@@ -4,15 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#11130f">
-    <title>@yield('title', 'FragZone') — Counter-Strike Servers</title>
-    <meta name="description" content="{{ __('ui.meta_description') }}">
+    <title>@yield('title', $siteSettings->translated('meta_title')) — {{ $siteSettings->site_name }}</title>
+    <meta name="description" content="{{ $siteSettings->translated('meta_description') }}">
+    <meta name="keywords" content="{{ $siteSettings->translated('meta_keywords') }}">
+    <meta property="og:site_name" content="{{ $siteSettings->site_name }}">
+    <meta property="og:title" content="@yield('title', $siteSettings->translated('meta_title'))">
+    <meta property="og:description" content="{{ $siteSettings->translated('meta_description') }}">
     <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
     <script src="{{ asset('assets/app.js') }}" defer></script>
 </head>
 <body>
 <div class="ambient a1"></div><div class="ambient a2"></div>
 <header class="site-header">
-    <a class="brand" href="{{ route('home') }}"><span>FZ</span><b>FRAG<em>ZONE</em><small>COMMUNITY NETWORK</small></b></a>
+    <a class="brand" href="{{ route('home') }}"><span>{{ $siteSettings->site_abbreviation }}</span><b>{{ $siteSettings->brandPrefix() }}<em>{{ $siteSettings->brandAccent() }}</em><small>{{ $siteSettings->translated('network_label') }}</small></b></a>
     <button class="nav-toggle" data-nav-toggle aria-label="{{ __('ui.nav.menu') }}">☰</button>
     <nav data-nav>
         <a href="{{ route('home') }}">{{ __('ui.nav.home') }}</a>
@@ -36,8 +40,8 @@
 </header>
 <main>@yield('content')</main>
 <footer>
-    <div class="brand"><span>FZ</span><b>FRAG<em>ZONE</em></b></div>
-    <p>{{ __('ui.footer_tagline') }}</p>
+    <div class="brand"><span>{{ $siteSettings->site_abbreviation }}</span><b>{{ $siteSettings->brandPrefix() }}<em>{{ $siteSettings->brandAccent() }}</em></b></div>
+    <p>{{ $siteSettings->translated('footer_text') }}</p>
     <div><a href="{{ route('servers.index') }}">{{ __('ui.nav.servers') }}</a> · <a href="{{ route('news.index') }}">{{ __('ui.nav.news') }}</a> · <a href="{{ route('admin.login') }}">Admin</a></div>
 </footer>
 </body>

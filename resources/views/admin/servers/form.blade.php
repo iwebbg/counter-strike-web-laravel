@@ -2,6 +2,7 @@
 @section('title', $server->exists ? __('ui.admin.edit_server') : __('ui.admin.new_server'))
 @section('content')
 <section class="admin shell">
+    @include('admin.partials.navigation')
     <div class="heading"><h1>{{ $server->exists ? __('ui.admin.edit_server') : __('ui.admin.new_server') }}</h1><a href="{{ route('admin.servers.index') }}">{{ __('ui.admin.back') }}</a></div>
     <form class="form panel" method="post" action="{{ $server->exists ? route('admin.servers.update', $server) : route('admin.servers.store') }}">
         @csrf @if($server->exists) @method('put') @endif

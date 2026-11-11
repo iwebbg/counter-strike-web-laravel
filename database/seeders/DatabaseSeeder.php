@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\GameServer;
 use App\Models\NewsPost;
 use App\Models\ServerCategory;
+use App\Models\SiteSetting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(['email' => 'admin@fragzone.local'], ['name' => 'FragZone Admin', 'password' => 'ChangeMe123!', 'is_admin' => true]);
+        SiteSetting::query()->firstOrCreate([], [
+            'site_name' => 'FragZone',
+            'site_abbreviation' => 'FZ',
+            'network_label' => ['bg' => 'ГЕЙМЪРСКА ОБЩНОСТ', 'en' => 'COMMUNITY NETWORK'],
+            'meta_title' => ['bg' => 'Counter-Strike сървъри', 'en' => 'Counter-Strike Servers'],
+            'meta_description' => ['bg' => 'Counter-Strike 1.6 и CS:GO сървъри със статус, карти и играчи на живо.', 'en' => 'Counter-Strike 1.6 and CS:GO servers with live status, maps and players.'],
+            'meta_keywords' => ['bg' => 'Counter-Strike, CS 1.6, CS:GO, сървъри, играчи, карти', 'en' => 'Counter-Strike, CS 1.6, CS:GO, servers, players, maps'],
+            'hero_eyebrow' => ['bg' => 'БАЛКАНСКА COUNTER-STRIKE ОБЩНОСТ', 'en' => 'BALKAN COUNTER-STRIKE COMMUNITY'],
+            'hero_primary' => ['bg' => 'ИГРАЙ.', 'en' => 'PLAY.'],
+            'hero_accent' => ['bg' => 'ПОБЕДИ.', 'en' => 'WIN.'],
+            'home_description' => ['bg' => 'Подбрани CS 1.6 и CS:GO сървъри, статистика на живо и общност, в която всеки рунд има значение.', 'en' => 'Curated CS 1.6 and CS:GO servers, live statistics and a community where every round matters.'],
+            'footer_text' => ['bg' => 'Играй честно. Уважавай отбора. Направи следващия рунд незабравим.', 'en' => 'Play fair. Respect the team. Make the next round unforgettable.'],
+        ]);
         $public = ServerCategory::updateOrCreate(['slug' => 'public'], ['name' => 'Public', 'description' => 'Класически community сървъри с приятелска атмосфера.', 'accent_color' => '#f4b942']);
         $competitive = ServerCategory::updateOrCreate(['slug' => 'competitive'], ['name' => 'Competitive', 'description' => 'Състезателни правила и подредени отбори.', 'accent_color' => '#55d6be']);
         $zombie = ServerCategory::updateOrCreate(['slug' => 'zombie'], ['name' => 'Zombie', 'description' => 'Zombie escape и infection модове.', 'accent_color' => '#ee6c4d']);

@@ -4,9 +4,9 @@
 <div class="home-hero">
     <section class="hero shell">
         <div>
-            <span class="eyebrow"><i></i>{{ __('ui.home.eyebrow') }}</span>
-            <h1>{{ __('ui.home.hero_1') }}<br><em>{{ __('ui.home.hero_2') }}</em></h1>
-            <p>{{ __('ui.home.intro') }}</p>
+            <span class="eyebrow"><i></i>{{ $siteSettings->translated('hero_eyebrow') }}</span>
+            <h1>{{ $siteSettings->translated('hero_primary') }}<br><em>{{ $siteSettings->translated('hero_accent') }}</em></h1>
+            <p>{{ $siteSettings->translated('home_description') }}</p>
             <p class="buttons"><a class="button" href="{{ route('servers.index') }}">{{ __('ui.home.browse') }}</a><a class="button ghost" href="#news">{{ __('ui.home.latest_news') }}</a></p>
         </div>
         <div class="radar"><div></div><b>{{ $servers->where('is_online', true)->sum('current_players') }}<small>{{ __('ui.home.players_online') }}</small></b></div>
