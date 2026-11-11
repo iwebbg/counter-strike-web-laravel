@@ -22,7 +22,6 @@
         <a href="{{ route('home') }}">{{ __('ui.nav.home') }}</a>
         <a href="{{ route('servers.index') }}">{{ __('ui.nav.servers') }}</a>
         <a href="{{ route('news.index') }}">{{ __('ui.nav.news') }}</a>
-        @auth<a href="{{ route('admin.dashboard') }}">{{ __('ui.nav.administration') }}</a>@endauth
     </nav>
     <form class="locale-switcher" method="post" action="{{ route('locale.update') }}">
         @csrf
@@ -42,7 +41,7 @@
 <footer>
     <div class="brand"><span>{{ $siteSettings->site_abbreviation }}</span><b>{{ $siteSettings->brandPrefix() }}<em>{{ $siteSettings->brandAccent() }}</em></b></div>
     <p>{{ $siteSettings->translated('footer_text') }}</p>
-    <div><a href="{{ route('servers.index') }}">{{ __('ui.nav.servers') }}</a> · <a href="{{ route('news.index') }}">{{ __('ui.nav.news') }}</a> · <a href="{{ route('admin.login') }}">{{ __('ui.nav.administration') }}</a></div>
+    <div><a href="{{ route('servers.index') }}">{{ __('ui.nav.servers') }}</a> · <a href="{{ route('news.index') }}">{{ __('ui.nav.news') }}</a></div>
 </footer>
 </body>
 </html>

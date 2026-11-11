@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\GameServer;
+use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -22,7 +23,20 @@ class PublicPortalTest extends TestCase
     /** Shows live network content on the landing page. */
     public function test_home_page_shows_seeded_servers_and_news(): void
     {
-        $this->get('/')->assertOk()->assertSee('ИГРАЙ.')->assertSee('ПОБЕДИ.')->assertSee('FragZone Classic #1')->assertSee('Уикенд за превземане');
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('ИГРАЙ.')
+            ->assertSee('ПОБЕДИ.')
+            ->assertSee('FragZone Classic #1')
+            ->assertSee('Уикенд за превземане')
+            ->assertDontSee(route('admin.login'), false);
+
+        $this->get('/admin/login')->assertOk()->assertSee('АДМИН ЛОГИН');
+
+        $administrator = User::where('email', 'admin@fragzone.local')->firstOrFail();
+        $this->actingAs($administrator)->get('/')
+            ->assertOk()
+            ->assertDontSee(route('admin.dashboard'), false);
     }
 
     /** Stores the selected language and renders the English interface. */
