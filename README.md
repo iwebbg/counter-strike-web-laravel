@@ -14,4 +14,14 @@ cp docker/.env.example docker/.env
 
 Open `http://localhost`. The seeded administrator is `admin@fragzone.local` / `ChangeMe123!`; change it immediately outside local development.
 
+## Tests
+
+Run PHPUnit only through the isolated SQLite test service:
+
+```bash
+./docker/compose test
+```
+
+The test bootstrap also forces an in-memory SQLite connection as a second safeguard against touching the local MariaDB data.
+
 See [docs/concept.md](docs/concept.md), [docs/architecture.md](docs/architecture.md), and [docs/roadmap.md](docs/roadmap.md).
