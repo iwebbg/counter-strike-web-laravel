@@ -4,6 +4,7 @@ return [
     'meta_description' => 'Counter-Strike 1.6 and CS:GO servers with live status, maps and players.',
     'nav' => ['home' => 'Home', 'servers' => 'Servers', 'news' => 'News', 'administration' => 'Administration', 'menu' => 'Menu'],
     'footer_tagline' => 'Play fair. Respect the team. Make the next round unforgettable.',
+    'footer' => ['created_by' => 'Website created by'],
     'common' => [
         'online' => 'ONLINE', 'offline' => 'OFFLINE', 'live' => 'LIVE', 'current_map' => 'CURRENT MAP',
         'unknown' => 'UNKNOWN', 'players' => 'PLAYERS', 'ping' => 'PING', 'details' => 'Details',
