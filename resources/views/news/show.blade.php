@@ -1,0 +1,1 @@
+@extends('layouts.app') @section('title',$post->title) @section('content')<article class="article shell"><a href="{{ route('news.index') }}">← Всички новини</a><time>{{ $post->published_at->format('d.m.Y · H:i') }}</time><h1>{{ $post->title }}</h1><p class="lead">{{ $post->excerpt }}</p><div>{!! nl2br(e($post->body)) !!}</div></article>@endsection
