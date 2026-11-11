@@ -1,0 +1,45 @@
+<?php
+
+return [
+    'meta_description' => 'Counter-Strike 1.6 и CS:GO сървъри, live статус, карти и играчи.',
+    'nav' => ['home' => 'Начало', 'servers' => 'Сървъри', 'news' => 'Новини', 'administration' => 'Администрация', 'menu' => 'Меню'],
+    'footer_tagline' => 'Играй честно. Уважавай отбора. Направи следващия рунд незабравим.',
+    'common' => [
+        'online' => 'ONLINE', 'offline' => 'OFFLINE', 'live' => 'LIVE', 'current_map' => 'ТЕКУЩА КАРТА',
+        'unknown' => 'НЕИЗВЕСТНА', 'players' => 'ИГРАЧИ', 'ping' => 'ПИНГ', 'details' => 'Детайли',
+        'address' => 'АДРЕС', 'updated' => 'ОБНОВЕНО', 'no_data' => 'няма данни', 'status' => 'Статус',
+        'map' => 'Карта', 'game' => 'Игра', 'name' => 'Име', 'edit' => 'Редакция', 'location' => 'Локация',
+    ],
+    'home' => [
+        'title' => 'Начало', 'eyebrow' => 'БАЛКАНСКА COUNTER-STRIKE ОБЩНОСТ',
+        'hero_1' => 'ТВОЯТ СЪРВЪР.', 'hero_2' => 'ТВОЯТ ОТБОР.', 'hero_3' => 'ТВОЯТ МОМЕНТ.',
+        'intro' => 'Подбрани CS 1.6 и CS:GO сървъри, live статистика и общност, в която всеки рунд има значение.',
+        'browse' => 'РАЗГЛЕДАЙ СЪРВЪРИТЕ →', 'latest_news' => 'ПОСЛЕДНИ НОВИНИ', 'players_online' => 'ИГРАЧИ ОНЛАЙН',
+        'live_servers' => 'LIVE СЪРВЪРИ', 'total_slots' => 'ОБЩО СЛОТОВЕ', 'game_modes' => 'GAME РЕЖИМИ', 'community' => 'COMMUNITY',
+        'live_network' => 'LIVE NETWORK', 'active_servers' => 'АКТИВНИ СЪРВЪРИ', 'view_all' => 'ВИЖ ВСИЧКИ →',
+        'find_mode' => 'FIND YOUR MODE', 'categories' => 'КАТЕГОРИИ',
+        'servers_count' => '{0} НЯМА СЪРВЪРИ|{1} :count СЪРВЪР →|[2,*] :count СЪРВЪРА →',
+        'intel_feed' => 'INTEL FEED', 'archive' => 'АРХИВ →', 'read' => 'ПРОЧЕТИ →',
+    ],
+    'servers' => [
+        'title' => 'Сървъри', 'browser' => 'SERVER BROWSER', 'choose' => 'ИЗБЕРИ СВОЯТА', 'arena' => 'АРЕНА',
+        'intro' => 'Live статус и последни данни от всички FragZone сървъри.', 'search' => 'Търси сървър...',
+        'all_games' => 'Всички игри', 'all_categories' => 'Всички категории', 'filter' => 'ФИЛТРИРАЙ', 'none' => 'Няма намерени сървъри.',
+        'back' => '← Сървъри', 'connect' => 'CONNECT В STEAM →', 'copy_ip' => 'КОПИРАЙ IP',
+        'scoreboard' => 'LIVE SCOREBOARD', 'ranking' => 'ИГРАЧИ ПО FRAGS', 'visible' => ':visible ОТ :total ВИДИМИ',
+        'player' => 'ИГРАЧ', 'frags' => 'FRAGS', 'time' => 'В СЪРВЪРА',
+        'protocol_note' => 'Valve A2S_PLAYER не предоставя CT/T отбор. За разделяне по отбори е необходим plugin или API от самия сървър.',
+        'no_players' => 'Няма достъпни подробни player данни',
+        'no_players_help' => 'Сървърът може да блокира A2S_PLAYER или данните още не са опреснени.',
+    ],
+    'news' => ['title' => 'Новини', 'eyebrow' => 'COMMUNITY INTEL', 'heading' => 'НОВИНИ И', 'events' => 'СЪБИТИЯ', 'all' => '← Всички новини'],
+    'auth' => ['title' => 'Администрация', 'eyebrow' => 'SECURE ACCESS', 'heading' => 'АДМИН ВХОД', 'password' => 'Парола', 'login' => 'ВЛЕЗ →', 'invalid' => 'Невалидни данни за вход.'],
+    'admin' => [
+        'dashboard' => 'DASHBOARD', 'add_server' => '+ СЪРВЪР', 'servers' => 'СЪРВЪРИ', 'players' => 'ИГРАЧИ', 'news' => 'НОВИНИ',
+        'latest_status' => 'ПОСЛЕДЕН СТАТУС', 'management' => 'УПРАВЛЕНИЕ →', 'server_management' => 'УПРАВЛЕНИЕ НА СЪРВЪРИ',
+        'add' => '+ ДОБАВИ', 'new_server' => 'НОВ СЪРВЪР', 'edit_server' => 'РЕДАКЦИЯ', 'back' => '← Назад',
+        'slug_help' => 'генерира се автоматично', 'slug_placeholder' => 'автоматично-от-името', 'category' => 'Категория',
+        'protocol' => 'Протокол', 'description' => 'Описание', 'featured' => 'Featured', 'published' => 'Публикуван', 'save' => 'ЗАПАЗИ →',
+        'created' => 'Сървърът е добавен.', 'updated' => 'Промените са запазени.', 'deleted' => 'Сървърът е изтрит.',
+    ],
+];

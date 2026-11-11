@@ -21,7 +21,7 @@ class SessionController
     {
         $credentials = $request->validate(['email' => ['required', 'email'], 'password' => ['required', 'string']]);
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
-            return back()->withErrors(['email' => 'Невалидни данни за вход.'])->onlyInput('email');
+            return back()->withErrors(['email' => __('ui.auth.invalid')])->onlyInput('email');
         }
         $request->session()->regenerate();
 

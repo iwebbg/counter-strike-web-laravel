@@ -22,7 +22,29 @@ class PublicPortalTest extends TestCase
     /** Shows live network content on the landing page. */
     public function test_home_page_shows_seeded_servers_and_news(): void
     {
-        $this->get('/')->assertOk()->assertSee('FragZone Classic #1')->assertSee('Retakes уикенд');
+        $this->get('/')->assertOk()->assertSee('ТВОЯТ СЪРВЪР.')->assertSee('FragZone Classic #1')->assertSee('Retakes уикенд');
+    }
+
+    /** Stores the selected language and renders the English interface. */
+    public function test_visitor_can_switch_interface_to_english(): void
+    {
+        $this->from('/')->post('/locale/en')
+            ->assertRedirect('/')
+            ->assertSessionHas('locale', 'en');
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('<html lang="en">', false)
+            ->assertSee('YOUR SERVER.')
+            ->assertSee('BROWSE SERVERS')
+            ->assertSee('Home');
+    }
+
+    /** Rejects locale codes that are not configured for the portal. */
+    public function test_visitor_cannot_select_an_unsupported_locale(): void
+    {
+        $this->post('/locale/de')->assertNotFound();
+        $this->assertNull(session('locale'));
     }
 
     /** Filters the server directory by game. */

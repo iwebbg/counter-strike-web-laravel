@@ -29,7 +29,7 @@ class GameServerController
     {
         GameServer::create($this->validated($request));
 
-        return redirect()->route('admin.servers.index')->with('status', 'Сървърът е добавен.');
+        return redirect()->route('admin.servers.index')->with('status', __('ui.admin.created'));
     }
 
     /** Shows the edit form. */
@@ -43,7 +43,7 @@ class GameServerController
     {
         $server->update($this->validated($request, $server));
 
-        return redirect()->route('admin.servers.index')->with('status', 'Промените са запазени.');
+        return redirect()->route('admin.servers.index')->with('status', __('ui.admin.updated'));
     }
 
     /** Deletes a server. */
@@ -51,7 +51,7 @@ class GameServerController
     {
         $server->delete();
 
-        return back()->with('status', 'Сървърът е изтрит.');
+        return back()->with('status', __('ui.admin.deleted'));
     }
 
     /** Validates and normalizes server form input. */

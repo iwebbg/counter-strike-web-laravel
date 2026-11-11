@@ -1,0 +1,45 @@
+<?php
+
+return [
+    'meta_description' => 'Counter-Strike 1.6 and CS:GO servers with live status, maps and players.',
+    'nav' => ['home' => 'Home', 'servers' => 'Servers', 'news' => 'News', 'administration' => 'Administration', 'menu' => 'Menu'],
+    'footer_tagline' => 'Play fair. Respect the team. Make the next round unforgettable.',
+    'common' => [
+        'online' => 'ONLINE', 'offline' => 'OFFLINE', 'live' => 'LIVE', 'current_map' => 'CURRENT MAP',
+        'unknown' => 'UNKNOWN', 'players' => 'PLAYERS', 'ping' => 'PING', 'details' => 'Details',
+        'address' => 'ADDRESS', 'updated' => 'UPDATED', 'no_data' => 'no data', 'status' => 'Status',
+        'map' => 'Map', 'game' => 'Game', 'name' => 'Name', 'edit' => 'Edit', 'location' => 'Location',
+    ],
+    'home' => [
+        'title' => 'Home', 'eyebrow' => 'BALKAN COUNTER-STRIKE COMMUNITY',
+        'hero_1' => 'YOUR SERVER.', 'hero_2' => 'YOUR TEAM.', 'hero_3' => 'YOUR MOMENT.',
+        'intro' => 'Curated CS 1.6 and CS:GO servers, live statistics and a community where every round matters.',
+        'browse' => 'BROWSE SERVERS →', 'latest_news' => 'LATEST NEWS', 'players_online' => 'PLAYERS ONLINE',
+        'live_servers' => 'LIVE SERVERS', 'total_slots' => 'TOTAL SLOTS', 'game_modes' => 'GAME MODES', 'community' => 'COMMUNITY',
+        'live_network' => 'LIVE NETWORK', 'active_servers' => 'ACTIVE SERVERS', 'view_all' => 'VIEW ALL →',
+        'find_mode' => 'FIND YOUR MODE', 'categories' => 'CATEGORIES',
+        'servers_count' => '{0} NO SERVERS|{1} :count SERVER →|[2,*] :count SERVERS →',
+        'intel_feed' => 'INTEL FEED', 'archive' => 'ARCHIVE →', 'read' => 'READ MORE →',
+    ],
+    'servers' => [
+        'title' => 'Servers', 'browser' => 'SERVER BROWSER', 'choose' => 'CHOOSE YOUR', 'arena' => 'ARENA',
+        'intro' => 'Live status and the latest data from every FragZone server.', 'search' => 'Search servers...',
+        'all_games' => 'All games', 'all_categories' => 'All categories', 'filter' => 'FILTER', 'none' => 'No servers found.',
+        'back' => '← Servers', 'connect' => 'CONNECT WITH STEAM →', 'copy_ip' => 'COPY IP',
+        'scoreboard' => 'LIVE SCOREBOARD', 'ranking' => 'PLAYERS BY FRAGS', 'visible' => ':visible OF :total VISIBLE',
+        'player' => 'PLAYER', 'frags' => 'FRAGS', 'time' => 'TIME ON SERVER',
+        'protocol_note' => 'Valve A2S_PLAYER does not provide CT/T team data. Team separation requires a plugin or API on the game server.',
+        'no_players' => 'Detailed player data is unavailable',
+        'no_players_help' => 'The server may block A2S_PLAYER or its data has not been refreshed yet.',
+    ],
+    'news' => ['title' => 'News', 'eyebrow' => 'COMMUNITY INTEL', 'heading' => 'NEWS AND', 'events' => 'EVENTS', 'all' => '← All news'],
+    'auth' => ['title' => 'Administration', 'eyebrow' => 'SECURE ACCESS', 'heading' => 'ADMIN LOGIN', 'password' => 'Password', 'login' => 'LOG IN →', 'invalid' => 'Invalid login credentials.'],
+    'admin' => [
+        'dashboard' => 'DASHBOARD', 'add_server' => '+ SERVER', 'servers' => 'SERVERS', 'players' => 'PLAYERS', 'news' => 'NEWS',
+        'latest_status' => 'LATEST STATUS', 'management' => 'MANAGE →', 'server_management' => 'SERVER MANAGEMENT',
+        'add' => '+ ADD', 'new_server' => 'NEW SERVER', 'edit_server' => 'EDIT SERVER', 'back' => '← Back',
+        'slug_help' => 'generated automatically', 'slug_placeholder' => 'generated-from-name', 'category' => 'Category',
+        'protocol' => 'Protocol', 'description' => 'Description', 'featured' => 'Featured', 'published' => 'Published', 'save' => 'SAVE →',
+        'created' => 'Server added.', 'updated' => 'Changes saved.', 'deleted' => 'Server deleted.',
+    ],
+];
