@@ -34,6 +34,18 @@ return [
         'no_players_help' => 'The server may block A2S_PLAYER or its data has not been refreshed yet.',
     ],
     'pagination' => ['label' => 'Pagination', 'previous' => '← PREVIOUS', 'next' => 'NEXT →'],
+    'errors' => [
+        'eyebrow' => 'SYSTEM MESSAGE', 'home' => 'BACK TO HOME', 'servers' => 'BROWSE SERVERS',
+        '401' => ['title' => 'Authentication required', 'message' => 'ACCESS IS RESTRICTED', 'description' => 'Sign in to your account before continuing to this page.'],
+        '403' => ['title' => 'Access denied', 'message' => 'ACCESS DENIED', 'description' => 'You do not have permission to perform this action or view this content.'],
+        '404' => ['title' => 'Page not found', 'message' => 'ROUND NOT FOUND', 'description' => 'The address may have changed or the page may no longer exist.'],
+        '419' => ['title' => 'Session expired', 'message' => 'SESSION ENDED', 'description' => 'This page was open for too long. Refresh it and try again.'],
+        '429' => ['title' => 'Too many requests', 'message' => 'SLOW DOWN', 'description' => 'We received too many requests. Wait a moment and try again.'],
+        '500' => ['title' => 'Internal error', 'message' => 'ROUND FAILED', 'description' => 'An unexpected problem occurred. The team can try again in a moment.'],
+        '503' => ['title' => 'Temporarily unavailable', 'message' => 'SERVER IS PREPARING', 'description' => 'Maintenance is in progress or the service is temporarily unavailable.'],
+        '4xx' => ['title' => 'Invalid request', 'message' => 'REQUEST REJECTED', 'description' => 'This request cannot be completed. Check the address and try again.'],
+        '5xx' => ['title' => 'System error', 'message' => 'CONNECTION INTERRUPTED', 'description' => 'The service encountered a temporary problem. Please try again shortly.'],
+    ],
     'news' => ['title' => 'News', 'eyebrow' => 'COMMUNITY INTEL', 'heading' => 'NEWS AND', 'events' => 'EVENTS', 'all' => '← All news'],
     'auth' => ['title' => 'Administration', 'eyebrow' => 'SECURE ACCESS', 'heading' => 'ADMIN LOGIN', 'password' => 'Password', 'login' => 'LOG IN →', 'invalid' => 'Invalid login credentials.'],
     'admin' => [

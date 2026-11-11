@@ -32,3 +32,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::put('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 });
+
+Route::fallback(fn () => abort(404));
