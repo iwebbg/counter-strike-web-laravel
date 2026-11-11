@@ -31,6 +31,12 @@ class AdminCategoryManagementTest extends TestCase
             'description_translations' => ['bg' => 'Сърф карти.', 'en' => 'Surf maps.'],
         ];
 
+        $this->actingAs($administrator)->get('/admin/categories/create')
+            ->assertOk()
+            ->assertSee('data-locale-tabs', false)
+            ->assertSee('data-locale-panel="bg"', false)
+            ->assertSee('data-locale-panel="en"', false);
+
         $this->actingAs($administrator)->post('/admin/categories', $payload)
             ->assertRedirect('/admin/categories');
 

@@ -46,7 +46,7 @@ return [
         'site_abbreviation' => 'Абревиатура', 'network_label' => 'Текст под логото', 'meta_title' => 'SEO заглавие',
         'meta_description' => 'Мета описание', 'meta_keywords' => 'Ключови думи', 'hero_eyebrow' => 'Надпис над слогана',
         'hero_primary' => 'Основен слоган', 'hero_accent' => 'Акцентиран слоган', 'home_description' => 'Описание на началната страница',
-        'footer_text' => 'Текст в долната част', 'settings_saved' => 'Настройките са запазени.',
+        'footer_text' => 'Текст в долната част', 'settings_saved' => 'Настройките са запазени.', 'language_content' => 'Езиково съдържание',
         'categories' => 'КАТЕГОРИИ', 'category_management' => 'УПРАВЛЕНИЕ НА КАТЕГОРИИ', 'new_category' => 'НОВА КАТЕГОРИЯ',
         'edit_category' => 'РЕДАКЦИЯ НА КАТЕГОРИЯ', 'accent_color' => 'Акцентен цвят', 'delete_category' => 'ИЗТРИЙ КАТЕГОРИЯТА',
         'confirm_delete_category' => 'Сигурни ли сте, че искате да изтриете категорията?', 'category_created' => 'Категорията е добавена.',

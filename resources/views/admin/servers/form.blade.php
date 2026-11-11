@@ -17,12 +17,23 @@
             <label>{{ __('ui.admin.host') }}<input name="host" value="{{ old('host', $server->host) }}" required></label>
             <label>{{ __('ui.admin.port') }}<input type="number" name="port" value="{{ old('port', $server->port ?? 27015) }}" required></label>
         </div>
-        @foreach(config('localization.locales') as $locale => $language)
-            <fieldset class="settings-language">
-                <legend>{{ $language }}</legend>
+        @php
+            $activeLocale = array_key_exists(app()->getLocale(), config('localization.locales')) ? app()->getLocale() : array_key_first(config('localization.locales'));
+            foreach (array_keys(config('localization.locales')) as $candidateLocale) {
+                if (collect($errors->keys())->contains(fn (string $key): bool => str_ends_with($key, '.'.$candidateLocale))) {
+                    $activeLocale = $candidateLocale;
+                    break;
+                }
+            }
+        @endphp
+        <x-admin.locale-tabs :active-locale="$activeLocale" tab-id="server">
+            @foreach(config('localization.locales') as $locale => $language)
+            <fieldset id="locale-panel-server-{{ $locale }}" class="settings-language locale-panel" role="tabpanel" aria-labelledby="locale-tab-server-{{ $locale }}" data-locale-panel="{{ $locale }}" @if($locale !== $activeLocale) hidden @endif>
+                <legend class="sr-only">{{ $language }}</legend>
                 <label>{{ __('ui.admin.description') }}<textarea name="description_translations[{{ $locale }}]">{{ old('description_translations.'.$locale, $server->description_translations[$locale] ?? ($locale === 'bg' ? $server->description : '')) }}</textarea></label>
             </fieldset>
-        @endforeach
+            @endforeach
+        </x-admin.locale-tabs>
         <div class="form-options">
             <label class="check-row"><input type="checkbox" name="is_featured" value="1" @checked(old('is_featured', $server->is_featured))><span>{{ __('ui.admin.featured') }}</span></label>
             <label class="check-row"><input type="checkbox" name="is_published" value="1" @checked(old('is_published', ! $server->exists || $server->is_published))><span>{{ __('ui.admin.published') }}</span></label>

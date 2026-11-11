@@ -25,6 +25,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    document.querySelectorAll('[data-locale-tabs]').forEach((tabs) => {
+        const buttons = [...tabs.querySelectorAll('[data-locale-tab]')];
+        const panels = [...tabs.querySelectorAll('[data-locale-panel]')];
+        const activate = (locale, moveFocus = false) => {
+            buttons.forEach((button) => {
+                const isActive = button.dataset.localeTab === locale;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                button.tabIndex = isActive ? 0 : -1;
+                if (isActive && moveFocus) button.focus();
+            });
+            panels.forEach((panel) => { panel.hidden = panel.dataset.localePanel !== locale; });
+            tabs.dataset.activeLocale = locale;
+        };
+
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => activate(button.dataset.localeTab));
+            button.addEventListener('keydown', (event) => {
+                let nextIndex = index;
+                if (event.key === 'ArrowRight') nextIndex = (index + 1) % buttons.length;
+                else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + buttons.length) % buttons.length;
+                else if (event.key === 'Home') nextIndex = 0;
+                else if (event.key === 'End') nextIndex = buttons.length - 1;
+                else return;
+
+                event.preventDefault();
+                activate(buttons[nextIndex].dataset.localeTab, true);
+            });
+        });
+
+        tabs.closest('form')?.addEventListener('invalid', (event) => {
+            const panel = event.target.closest('[data-locale-panel]');
+            if (panel?.hidden) activate(panel.dataset.localePanel);
+        }, true);
+
+        activate(tabs.dataset.activeLocale ?? buttons[0]?.dataset.localeTab);
+    });
+
     document.querySelectorAll('[data-rich-editor]').forEach((editor) => {
         const content = editor.querySelector('.editor-content');
         const source = editor.querySelector('.editor-source');

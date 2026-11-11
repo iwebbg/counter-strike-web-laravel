@@ -26,6 +26,7 @@ class AdminNewsManagementTest extends TestCase
         $administrator = User::where('email', 'admin@fragzone.local')->firstOrFail();
         $this->actingAs($administrator)->get('/admin/news/create')
             ->assertOk()
+            ->assertSee('data-locale-tabs', false)
             ->assertSee('data-rich-editor', false)
             ->assertSee('body_translations[bg]', false)
             ->assertSee('body_translations[en]', false);

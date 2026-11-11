@@ -11,10 +11,20 @@
             <label>{{ __('ui.admin.slug') }} <small>{{ __('ui.admin.slug_help') }}</small><input name="slug" value="{{ old('slug', $post->slug) }}" data-slug-target></label>
             <label>{{ __('ui.admin.publication_date') }}<input type="datetime-local" name="published_at" value="{{ old('published_at', $post->published_at?->format('Y-m-d\TH:i')) }}"></label>
         </div>
-        @foreach(config('localization.locales') as $locale => $language)
+        @php
+            $activeLocale = array_key_exists(app()->getLocale(), config('localization.locales')) ? app()->getLocale() : array_key_first(config('localization.locales'));
+            foreach (array_keys(config('localization.locales')) as $candidateLocale) {
+                if (collect($errors->keys())->contains(fn (string $key): bool => str_ends_with($key, '.'.$candidateLocale))) {
+                    $activeLocale = $candidateLocale;
+                    break;
+                }
+            }
+        @endphp
+        <x-admin.locale-tabs :active-locale="$activeLocale" tab-id="news">
+            @foreach(config('localization.locales') as $locale => $language)
             @php($body = app(\App\Support\RichTextSanitizer::class)->sanitize((string) old('body_translations.'.$locale, $post->body_translations[$locale] ?? ($locale === 'bg' ? $post->body : ''))))
-            <fieldset class="settings-language">
-                <legend>{{ $language }}</legend>
+            <fieldset id="locale-panel-news-{{ $locale }}" class="settings-language locale-panel" role="tabpanel" aria-labelledby="locale-tab-news-{{ $locale }}" data-locale-panel="{{ $locale }}" @if($locale !== $activeLocale) hidden @endif>
+                <legend class="sr-only">{{ $language }}</legend>
                 <div class="form-grid">
                     <label>{{ __('ui.admin.title') }}<input name="title_translations[{{ $locale }}]" value="{{ old('title_translations.'.$locale, $post->title_translations[$locale] ?? ($locale === 'bg' ? $post->title : '')) }}" @if($locale === 'en') data-slug-source @endif required></label>
                     <label class="wide">{{ __('ui.admin.excerpt') }}<textarea name="excerpt_translations[{{ $locale }}]" required>{{ old('excerpt_translations.'.$locale, $post->excerpt_translations[$locale] ?? ($locale === 'bg' ? $post->excerpt : '')) }}</textarea></label>
@@ -32,7 +42,8 @@
                     </div>
                 </div>
             </fieldset>
-        @endforeach
+            @endforeach
+        </x-admin.locale-tabs>
         <div class="form-options"><label class="check-row"><input type="checkbox" name="is_published" value="1" @checked(old('is_published', $post->is_published))><span>{{ __('ui.admin.published') }}</span></label></div>
         <button class="button">{{ __('ui.admin.save') }}</button>
     </form>

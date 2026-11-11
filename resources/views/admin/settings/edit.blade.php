@@ -12,9 +12,19 @@
             <label>{{ __('ui.admin.site_name') }}<input name="site_name" value="{{ old('site_name', $settings->site_name) }}" required></label>
             <label>{{ __('ui.admin.site_abbreviation') }}<input name="site_abbreviation" value="{{ old('site_abbreviation', $settings->site_abbreviation) }}" required></label>
         </div>
-        @foreach(config('localization.locales') as $locale => $language)
-            <fieldset class="settings-language">
-                <legend>{{ $language }}</legend>
+        @php
+            $activeLocale = array_key_exists(app()->getLocale(), config('localization.locales')) ? app()->getLocale() : array_key_first(config('localization.locales'));
+            foreach (array_keys(config('localization.locales')) as $candidateLocale) {
+                if (collect($errors->keys())->contains(fn (string $key): bool => str_ends_with($key, '.'.$candidateLocale))) {
+                    $activeLocale = $candidateLocale;
+                    break;
+                }
+            }
+        @endphp
+        <x-admin.locale-tabs :active-locale="$activeLocale" tab-id="settings">
+            @foreach(config('localization.locales') as $locale => $language)
+            <fieldset id="locale-panel-settings-{{ $locale }}" class="settings-language locale-panel" role="tabpanel" aria-labelledby="locale-tab-settings-{{ $locale }}" data-locale-panel="{{ $locale }}" @if($locale !== $activeLocale) hidden @endif>
+                <legend class="sr-only">{{ $language }}</legend>
                 <div class="form-grid">
                     <label>{{ __('ui.admin.network_label') }}<input name="network_label[{{ $locale }}]" value="{{ old('network_label.'.$locale, $settings->network_label[$locale] ?? '') }}" required></label>
                     <label>{{ __('ui.admin.meta_title') }}<input name="meta_title[{{ $locale }}]" value="{{ old('meta_title.'.$locale, $settings->meta_title[$locale] ?? '') }}" required></label>
@@ -27,7 +37,8 @@
                     <label class="wide">{{ __('ui.admin.footer_text') }}<input name="footer_text[{{ $locale }}]" value="{{ old('footer_text.'.$locale, $settings->footer_text[$locale] ?? '') }}" required></label>
                 </div>
             </fieldset>
-        @endforeach
+            @endforeach
+        </x-admin.locale-tabs>
         <button class="button">{{ __('ui.admin.save') }}</button>
     </form>
 </section>

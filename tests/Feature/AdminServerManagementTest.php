@@ -45,6 +45,7 @@ class AdminServerManagementTest extends TestCase
 
         $this->actingAs($administrator)->get('/admin/servers/'.$server->id.'/edit')
             ->assertOk()
+            ->assertSee('data-locale-tabs', false)
             ->assertSee('class="check-row"', false)
             ->assertSee('description_translations[bg]', false)
             ->assertSee('description_translations[en]', false)

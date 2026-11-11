@@ -30,6 +30,12 @@ class AdminSiteSettingsTest extends TestCase
         $payload['site_abbreviation'] = 'SH';
         $payload['meta_description']['bg'] = 'Ново SEO описание.';
 
+        $this->actingAs($administrator)->get('/admin/settings')
+            ->assertOk()
+            ->assertSee('data-locale-tabs', false)
+            ->assertSee('data-locale-panel="bg"', false)
+            ->assertSee('data-locale-panel="en"', false);
+
         $this->actingAs($administrator)->put('/admin/settings', $payload)
             ->assertRedirect()
             ->assertSessionHas('status');

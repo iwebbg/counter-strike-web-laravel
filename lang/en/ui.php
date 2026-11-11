@@ -46,7 +46,7 @@ return [
         'site_abbreviation' => 'Abbreviation', 'network_label' => 'Logo subtitle', 'meta_title' => 'SEO title',
         'meta_description' => 'Meta description', 'meta_keywords' => 'Keywords', 'hero_eyebrow' => 'Hero eyebrow',
         'hero_primary' => 'Primary slogan', 'hero_accent' => 'Accent slogan', 'home_description' => 'Homepage description',
-        'footer_text' => 'Footer text', 'settings_saved' => 'Settings saved.',
+        'footer_text' => 'Footer text', 'settings_saved' => 'Settings saved.', 'language_content' => 'Language content',
         'categories' => 'CATEGORIES', 'category_management' => 'CATEGORY MANAGEMENT', 'new_category' => 'NEW CATEGORY',
         'edit_category' => 'EDIT CATEGORY', 'accent_color' => 'Accent color', 'delete_category' => 'DELETE CATEGORY',
         'confirm_delete_category' => 'Are you sure you want to delete this category?', 'category_created' => 'Category added.',
