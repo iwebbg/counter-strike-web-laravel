@@ -29,6 +29,9 @@ class PublicPortalTest extends TestCase
             ->assertSee('ПОБЕДИ.')
             ->assertSee('FragZone Classic #1')
             ->assertSee('Уикенд за превземане')
+            ->assertSee('Уебсайтът е създаден от')
+            ->assertSee('href="https://interweb.bg"', false)
+            ->assertSee('InterWeb Ltd.')
             ->assertDontSee(route('admin.login'), false);
 
         $this->get('/admin/login')->assertOk()->assertSee('АДМИН ЛОГИН');
