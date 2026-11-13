@@ -18,6 +18,10 @@ FragZone е self-hosted Laravel Blade портал за Counter-Strike 1.6 и CS
 
 Ръководствата за инсталация, deployment, конфигурация и разработка са налични в [пълната документация](docs/README.md).
 
+## Лиценз
+
+FragZone се разпространява под [MIT License](LICENSE). © 2026 iwebbg & InterWeb Ltd.
+
 ## Подкрепете проекта
 
 Ако FragZone е полезен за вашия сървър или общност, можете да подкрепите неговата поддръжка и развитие:
