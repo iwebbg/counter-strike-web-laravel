@@ -27,13 +27,13 @@ class AdminSupportPageTest extends TestCase
         $this->actingAs($administrator)->get('/admin/support')
             ->assertOk()
             ->assertSee('Как можем да помогнем?')
-            ->assertSee('Как да намеря моя Steam ID?')
             ->assertSee('Приложете диагностика')
             ->assertSee('https://github.com/iwebbg/counter-strike-web-laravel/issues/new', false)
             ->assertSee('https://ko-fi.com/interwebltd', false)
             ->assertSee('https://buymeacoffee.com/interweb.bg', false)
             ->assertSee('https://paypal.me/interwebltd', false)
-            ->assertSee('data-copy="status"', false);
+            ->assertSee('assets/admin-support.css?v=', false)
+            ->assertDontSee('Steam ID');
     }
 
     /** Renders the translated support content for an English session. */
@@ -44,8 +44,8 @@ class AdminSupportPageTest extends TestCase
         $this->actingAs($administrator)->withSession(['locale' => 'en'])->get('/admin/support')
             ->assertOk()
             ->assertSee('How can we help?')
-            ->assertSee('How do I find my Steam ID?')
-            ->assertSee('Include diagnostics');
+            ->assertSee('Include diagnostics')
+            ->assertDontSee('Steam ID');
     }
 
     /** Keeps support resources private to authenticated administrators. */

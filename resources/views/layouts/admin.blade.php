@@ -7,8 +7,9 @@
     <title>@yield('title', $siteSettings->translated('meta_title')) — {{ $siteSettings->site_name }}</title>
     <meta name="description" content="{{ $siteSettings->translated('meta_description') }}">
     <meta name="robots" content="noindex,nofollow">
-    <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
-    <script src="{{ asset('assets/app.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('assets/app.css') }}?v={{ filemtime(public_path('assets/app.css')) }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin-support.css') }}?v={{ filemtime(public_path('assets/admin-support.css')) }}">
+    <script src="{{ asset('assets/app.js') }}?v={{ filemtime(public_path('assets/app.js')) }}" defer></script>
 </head>
 <body data-theme="admin" data-copy-success="{{ __('ui.common.copied') }}">
 <div class="ambient a1"></div><div class="ambient a2"></div>

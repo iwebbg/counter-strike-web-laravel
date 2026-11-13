@@ -38,22 +38,6 @@
         </article>
     </div>
 
-    <section class="panel diagnostics-card" id="steam-id">
-        <header>
-            <div><span class="eyebrow">{{ __('ui.support.steam_eyebrow') }}</span><h2>{{ __('ui.support.steam_title') }}</h2></div>
-            <span class="support-card-icon" aria-hidden="true">&gt;_</span>
-        </header>
-        <p>{{ __('ui.support.steam_description') }}</p>
-        <ol class="support-steps">
-            @foreach(__('ui.support.steam_steps') as $step)<li>{{ $step }}</li>@endforeach
-        </ol>
-        <div class="command-copy-row">
-            <pre class="diagnostics-command">status</pre>
-            <button class="button ghost" type="button" data-copy="status">{{ __('ui.support.copy_status') }}</button>
-        </div>
-        <p class="donation-note">{{ __('ui.support.steam_format') }} <code>STEAM_0:1:123456</code>. {{ __('ui.support.steam_warning') }}</p>
-    </section>
-
     <section class="panel diagnostics-card">
         <header>
             <div><span class="eyebrow">{{ __('ui.support.before_reporting') }}</span><h2>{{ __('ui.support.diagnostics_title') }}</h2></div>
@@ -70,8 +54,8 @@
         </header>
         <p>{{ __('ui.support.donate_description') }}</p>
         <div class="donation-grid">
-            <a class="donation-option" href="https://ko-fi.com/interwebltd" target="_blank" rel="noopener noreferrer"><span class="donation-icon">☕</span><span><strong>Ko-fi</strong><small>{{ __('ui.support.coffee') }}</small></span><b>↗</b></a>
-            <a class="donation-option" href="https://buymeacoffee.com/interweb.bg" target="_blank" rel="noopener noreferrer"><span class="donation-icon">☕</span><span><strong>Buy Me a Coffee</strong><small>{{ __('ui.support.one_time') }}</small></span><b>↗</b></a>
+            <a class="donation-option" href="https://ko-fi.com/interwebltd" target="_blank" rel="noopener noreferrer"><span class="donation-icon">K</span><span><strong>Ko-fi</strong><small>{{ __('ui.support.coffee') }}</small></span><b aria-hidden="true">↗</b></a>
+            <a class="donation-option" href="https://buymeacoffee.com/interweb.bg" target="_blank" rel="noopener noreferrer"><span class="donation-icon">B</span><span><strong>Buy Me a Coffee</strong><small>{{ __('ui.support.one_time') }}</small></span><b aria-hidden="true">↗</b></a>
             <a class="donation-option" href="https://paypal.me/interwebltd" target="_blank" rel="noopener noreferrer"><span class="donation-icon">P</span><span><strong>PayPal</strong><small>{{ __('ui.support.paypal') }}</small></span><b>↗</b></a>
         </div>
         <p class="donation-note">{{ __('ui.support.payment_notice') }}</p>

@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#11130f">
     <meta name="robots" content="noindex,nofollow">
     <title>@yield('title') — {{ $errorSiteName }}</title>
-    <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app.css') }}?v={{ filemtime(public_path('assets/app.css')) }}">
 </head>
 <body class="error-page">
 <header class="error-header">
