@@ -1,21 +1,23 @@
-# Delivery roadmap
+# План за развитие
 
-## Phase 1 — working portal (complete)
+[Български](roadmap.md) | [English](en/roadmap.md)
 
-- Laravel foundation, MariaDB schema, seed data and Docker modes.
-- Public home, server directory, server details and news.
-- Admin authentication, dashboard and server management.
-- Valve A2S info query and scheduled snapshots.
+## Етап 1 — работещ портал (завършен)
 
-## Phase 2 — community depth (in progress)
+- Laravel основа, MariaDB схема, примерни данни и Docker режими.
+- Публични начална страница, списък и детайли за сървъри, и новини.
+- Admin authentication, dashboard и управление на сървъри.
+- Valve A2S info заявки и планирани snapshots.
 
-- Completed: player query challenge flow and score-sorted snapshot rankings.
-- Completed: category/news management, Bulgarian/English localization and configurable branding/SEO.
-- Remaining: long-term player identity aggregation, anti-duplication rules, map history and uptime charts.
-- Remaining: uploads, audit log and granular administrator roles.
+## Етап 2 — развитие на общността (в процес)
 
-## Phase 3 — operations
+- Завършено: player query challenge flow и snapshot класации, сортирани по резултат.
+- Завършено: управление на категории/новини, BG/EN локализация и конфигурируеми branding/SEO настройки.
+- Остава: дългосрочно обединяване на player identity, правила против дублиране, история на картите и uptime графики.
+- Остава: uploads, audit log и детайлни администраторски роли.
 
-- Queue-based parallel refresh, retry/backoff policy and query health alerts.
-- Import/export, Steam Web API enrichment and optional LGSL adapter.
-- Browser and protocol integration suites, observability and backup runbooks.
+## Етап 3 — операции
+
+- Паралелно обновяване чрез опашки, retry/backoff политика и известия за проблемни заявки.
+- Import/export, обогатяване чрез Steam Web API и опционален LGSL adapter.
+- Browser и protocol integration тестове, observability и процедури за backup.
