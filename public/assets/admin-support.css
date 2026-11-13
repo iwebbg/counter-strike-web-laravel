@@ -1,0 +1,47 @@
+.donation-option {
+    grid-template-columns: 48px minmax(0, 1fr) 30px;
+    min-height: 92px;
+    padding: 17px;
+    background: linear-gradient(145deg, #151912, #10130f);
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.donation-option:hover,
+.donation-option:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--amber);
+    background: linear-gradient(145deg, #20251b, #161a14);
+    outline: 0;
+}
+
+.donation-option > span:nth-child(2) {
+    gap: 4px;
+    min-width: 0;
+}
+
+.donation-option strong {
+    font: 800 18px 'Barlow Condensed';
+    letter-spacing: .2px;
+}
+
+.donation-option small {
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.donation-option > b {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--line);
+    color: var(--amber);
+    font-size: 14px;
+}
+
+.donation-option:hover > b,
+.donation-option:focus-visible > b {
+    border-color: var(--amber);
+    background: var(--amber);
+    color: #171710;
+}

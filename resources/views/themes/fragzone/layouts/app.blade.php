@@ -10,8 +10,8 @@
     <meta property="og:site_name" content="{{ $siteSettings->site_name }}">
     <meta property="og:title" content="@yield('title', $siteSettings->translated('meta_title'))">
     <meta property="og:description" content="{{ $siteSettings->translated('meta_description') }}">
-    <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
-    <script src="{{ asset('assets/app.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('assets/app.css') }}?v={{ filemtime(public_path('assets/app.css')) }}">
+    <script src="{{ asset('assets/app.js') }}?v={{ filemtime(public_path('assets/app.js')) }}" defer></script>
 </head>
 <body data-theme="{{ $activeTheme['slug'] }}" data-copy-success="{{ __('ui.common.copied') }}">
 <div class="ambient a1"></div><div class="ambient a2"></div>
