@@ -1,110 +1,112 @@
-# Environment configuration
+# Конфигурация на средата
 
-FragZone reads runtime settings from the untracked root `.env`. The Docker wrapper reads `docker/.env` to select an infrastructure mode.
+[Български](configuration.md) | [English](en/configuration.md)
+
+FragZone зарежда runtime настройките от непроследявания root файл `.env`. Docker wrapper-ът чете `docker/.env`, за да избере инфраструктурен режим.
 
 ```bash
 cp .env.example .env
 cp docker/.env.example docker/.env
 ```
 
-Never commit real secrets. After production changes, clear and rebuild configuration. For a manual/LAMP installation run:
+Никога не commit-вайте истински secrets. След production промени изчистете и изградете отново конфигурацията. При manual/LAMP инсталация изпълнете:
 
 ```bash
 php artisan optimize:clear
 php artisan optimize
 ```
 
-Inside Docker use the application-user helper, which prevents root-owned cache files:
+В Docker използвайте helper-а за application user, който предотвратява root-owned cache файлове:
 
 ```bash
 ./docker/compose artisan optimize:clear
 ./docker/compose artisan optimize
 ```
 
-## Application
+## Приложение
 
-| Variable | Example | Purpose |
+| Променлива | Пример | Предназначение |
 | --- | --- | --- |
-| `APP_NAME` | `FragZone` | Internal Laravel name; public branding is managed from administration. |
-| `APP_ENV` | `local` / `production` | Runtime environment. |
-| `APP_KEY` | `base64:...` | Encryption/signing key; generate once and preserve it. |
-| `APP_DEBUG` | `false` | Detailed exceptions; always false publicly. |
-| `APP_URL` | `https://cs.example.com` | Canonical URL including scheme. |
-| `APP_TIMEZONE` | `Europe/Sofia` | Publishing and scheduler timezone. |
-| `APP_LOCALE` | `bg` | Default locale configured in `config/localization.php`. |
-| `APP_FALLBACK_LOCALE` | `en` | Fallback for missing translations. |
-| `APP_PREVIOUS_KEYS` | empty | Optional previous keys during controlled key rotation. |
+| `APP_NAME` | `FragZone` | Вътрешно Laravel име; публичният брандинг се управлява от администрацията. |
+| `APP_ENV` | `local` / `production` | Runtime среда. |
+| `APP_KEY` | `base64:...` | Ключ за encryption/signing; генерирайте веднъж и го запазете. |
+| `APP_DEBUG` | `false` | Подробни exceptions; винаги `false` публично. |
+| `APP_URL` | `https://cs.example.com` | Каноничен URL, включително scheme. |
+| `APP_TIMEZONE` | `Europe/Sofia` | Timezone за публикуване и scheduler. |
+| `APP_LOCALE` | `bg` | Език по подразбиране от `config/localization.php`. |
+| `APP_FALLBACK_LOCALE` | `en` | Fallback при липсващи преводи. |
+| `APP_PREVIOUS_KEYS` | празно | Опционални предишни ключове при контролирана key rotation. |
 
-Changing `APP_KEY` invalidates sessions and may make encrypted values unreadable. Back it up securely.
+Промяната на `APP_KEY` анулира сесиите и може да направи encrypted стойности нечетими. Пазете сигурен backup.
 
 ## MariaDB/MySQL
 
-| Variable | Docker | Manual/cPanel | Purpose |
+| Променлива | Docker | Manual/cPanel | Предназначение |
 | --- | --- | --- | --- |
 | `DB_CONNECTION` | `mariadb` | `mariadb` | Database driver. |
-| `DB_HOST` | `database` | `127.0.0.1` or `localhost` | Host visible from PHP. |
+| `DB_HOST` | `database` | `127.0.0.1` или `localhost` | Host, видим от PHP. |
 | `DB_PORT` | `3306` | `3306` | Database port. |
-| `DB_DATABASE` | `fragzone` | hosting database name | Application database. |
-| `DB_USERNAME` | `fragzone` | restricted user | Runtime login. |
-| `DB_PASSWORD` | strong secret | strong secret | Runtime password. |
-| `DB_ROOT_PASSWORD` | different strong secret | unused | Docker MariaDB initialization only. |
+| `DB_DATABASE` | `fragzone` | име от hosting доставчика | Application database. |
+| `DB_USERNAME` | `fragzone` | ограничен потребител | Runtime login. |
+| `DB_PASSWORD` | силен secret | силен secret | Runtime парола. |
+| `DB_ROOT_PASSWORD` | различен силен secret | не се използва | Само за начална Docker MariaDB конфигурация. |
 
-Docker initialization values apply only when `database-data` is first created. Editing them later does not change credentials already stored in MariaDB.
+Docker initialization стойностите важат само при първото създаване на `database-data`. Последващата им промяна не сменя credentials, които вече са записани в MariaDB.
 
-## Sessions, cache, queues and Redis
+## Сесии, cache, опашки и Redis
 
-| Variable | Docker production | Simple cPanel | Purpose |
+| Променлива | Docker production | Опростен cPanel | Предназначение |
 | --- | --- | --- | --- |
-| `SESSION_DRIVER` | `database` | `database` | Administrator sessions. |
-| `SESSION_SECURE_COOKIE` | `true` | `true` on HTTPS | HTTPS-only session cookie. |
-| `SESSION_DOMAIN` | empty | empty | Optional shared cookie domain. |
+| `SESSION_DRIVER` | `database` | `database` | Администраторски сесии. |
+| `SESSION_SECURE_COOKIE` | `true` | `true` при HTTPS | Session cookie само през HTTPS. |
+| `SESSION_DOMAIN` | празно | празно | Опционален споделен cookie domain. |
 | `CACHE_STORE` | `redis` | `database` | Cache backend. |
-| `QUEUE_CONNECTION` | `redis` | `sync` | Queue backend; non-sync needs a worker. |
-| `REDIS_CLIENT` | `phpredis` | optional | Redis client. |
-| `REDIS_HOST` | `redis` | provider host | Redis host. |
-| `REDIS_PORT` | `6379` | provider port | Redis port. |
-| `REDIS_PASSWORD` | empty/private network | provider secret | Optional authentication. |
+| `QUEUE_CONNECTION` | `redis` | `sync` | Queue backend; при стойност различна от `sync` е нужен worker. |
+| `REDIS_CLIENT` | `phpredis` | опционално | Redis client. |
+| `REDIS_HOST` | `redis` | host от доставчика | Redis host. |
+| `REDIS_PORT` | `6379` | port от доставчика | Redis port. |
+| `REDIS_PASSWORD` | празно/private network | secret от доставчика | Опционална автентикация. |
 
-Database sessions/cache/queues use tables included in the migrations.
+Database sessions/cache/queues използват таблиците, включени в migrations.
 
-## Game-server queries
+## Заявки към игровите сървъри
 
-| Variable | Default | Purpose |
+| Променлива | По подразбиране | Предназначение |
 | --- | --- | --- |
-| `GAME_QUERY_TIMEOUT_SECONDS` | `1.0` | UDP query timeout. Keep it short. |
-| `GAME_QUERY_MAX_PACKET_BYTES` | `65535` | Maximum assembled A2S response size. |
+| `GAME_QUERY_TIMEOUT_SECONDS` | `1.0` | UDP query timeout. Поддържайте го кратък. |
+| `GAME_QUERY_MAX_PACKET_BYTES` | `65535` | Максимален размер на сглобен A2S response. |
 
-Host, query port, protocol and game are stored per server in administration. Container `127.0.0.1` is the container itself, not the Docker host. Use a reachable host address, DNS name or public IP.
+Host, query port, protocol и game се пазят за всеки сървър в администрацията. В контейнер `127.0.0.1` сочи към самия контейнер, а не към Docker host-а. Използвайте достъпен host адрес, DNS име или публичен IP.
 
-## Logging and migrations
+## Logging и migrations
 
-| Variable | Example | Purpose |
+| Променлива | Пример | Предназначение |
 | --- | --- | --- |
 | `LOG_CHANNEL` | `stack` | Laravel log channel. |
-| `LOG_LEVEL` | `warning` | Production threshold; use `debug` locally. |
-| `AUTO_MIGRATE` | `true` Docker / `false` manual | Docker entrypoint runs migrations; it never seeds. |
+| `LOG_LEVEL` | `warning` | Production threshold; използвайте `debug` локално. |
+| `AUTO_MIGRATE` | `true` Docker / `false` manual | Docker entrypoint изпълнява migrations; никога не seed-ва. |
 
-## Docker infrastructure
+## Docker инфраструктура
 
-These values belong in `docker/.env`:
+Тези стойности са в `docker/.env`:
 
-| Variable | Values | Purpose |
+| Променлива | Стойности | Предназначение |
 | --- | --- | --- |
-| `DOCKER_ENV` | `local`, `production`, `external` | Selects Compose files. |
-| `APP_DOMAIN` | `cs.example.com` | Production Nginx domain without scheme. |
-| `NGINX_CONTAINER_NAME` | `fragzone-nginx` | Stable, unique container name. |
-| `EXTERNAL_DOCKER_NETWORK` | `server1_net` | Existing reverse-proxy network. |
+| `DOCKER_ENV` | `local`, `production`, `external` | Избира Compose файловете. |
+| `APP_DOMAIN` | `cs.example.com` | Production Nginx domain без scheme. |
+| `NGINX_CONTAINER_NAME` | `fragzone-nginx` | Стабилно и уникално име на контейнера. |
+| `EXTERNAL_DOCKER_NETWORK` | `server1_net` | Съществуваща reverse-proxy network. |
 
-- `local`: host port 80, bind-mounted source, MariaDB, Redis and scheduler.
-- `production`: ports 80/443, Let's Encrypt, immutable app, queue and scheduler.
-- `external`: production services on an existing proxy network, with no published Nginx ports.
+- `local`: host port 80, bind-mounted source, MariaDB, Redis и scheduler.
+- `production`: портове 80/443, Let's Encrypt, immutable app, queue и scheduler.
+- `external`: production services в съществуваща proxy network, без публикувани Nginx портове.
 
 ## Production checklist
 
-- `APP_ENV=production`, `APP_DEBUG=false`, exact HTTPS `APP_URL`.
-- Unique preserved `APP_KEY`, database runtime password and root password.
-- `SESSION_SECURE_COOKIE=true` when TLS is used.
-- No demo seed; create the administrator with `admin:create`.
-- Scheduler every minute and a queue worker when the queue is not `sync`.
-- Outbound UDP verified with `servers:refresh`.
-- Database and `.env` backups tested.
+- `APP_ENV=production`, `APP_DEBUG=false` и точен HTTPS `APP_URL`.
+- Уникални и запазени `APP_KEY`, database runtime парола и root парола.
+- `SESSION_SECURE_COOKIE=true` при използване на TLS.
+- Без demo seed; създайте администратора чрез `admin:create`.
+- Scheduler всяка минута и queue worker, когато queue не е `sync`.
+- Потвърден изходящ UDP чрез `servers:refresh`.
+- Тествани backups на базата и `.env`.

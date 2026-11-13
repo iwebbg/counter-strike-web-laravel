@@ -1,10 +1,12 @@
-# Blade theme system
+# Система за Blade теми
 
-FragZone themes are update-safe public Blade overrides. The complete default theme lives in `resources/views/themes/fragzone`. Every other direct child directory is an optional custom theme and needs no PHP class, package, JSON manifest or duplicated business logic.
+[Български](themes.md) | [English](en/themes.md)
 
-## Directory structure
+FragZone темите са устойчиви при обновяване публични Blade overrides. Пълната тема по подразбиране е в `resources/views/themes/fragzone`. Всяка друга директна child директория е опционална custom тема и не изисква PHP class, package, JSON manifest или дублирана бизнес логика.
 
-A custom `fragzone-dark` theme may contain only the pages it changes:
+## Структура на директориите
+
+Custom тема `fragzone-dark` може да съдържа само страниците, които променя:
 
 ```text
 resources/views/themes/fragzone-dark/
@@ -18,9 +20,9 @@ resources/views/themes/fragzone-dark/
     └── index.blade.php
 ```
 
-The folder name is the theme slug. It must start with a lowercase letter or number and may contain only lowercase letters, numbers and hyphens.
+Името на директорията е slug на темата. То трябва да започва с малка латинска буква или цифра и може да съдържа само малки латински букви, цифри и тирета.
 
-No manifest is required. The administration selector discovers direct child directories automatically. A slug such as `fragzone-dark` is displayed as `Fragzone Dark`. Optional custom labels can be added in `config/themes.php`:
+Не е нужен manifest. Selector-ът в администрацията автоматично открива директните child директории. Slug като `fragzone-dark` се показва като `Fragzone Dark`. Опционални custom имена могат да се добавят в `config/themes.php`:
 
 ```php
 'labels' => [
@@ -29,31 +31,31 @@ No manifest is required. The administration selector discovers direct child dire
 ],
 ```
 
-## Override and fallback behavior
+## Override и fallback поведение
 
-Custom theme files use the same relative name as the default FragZone files:
+Файловете на custom темата използват същото относително име като файловете в темата FragZone:
 
-| Default FragZone view | Custom override |
+| Изглед във FragZone | Custom override |
 | --- | --- |
 | `resources/views/themes/fragzone/home.blade.php` | `resources/views/themes/fragzone-dark/home.blade.php` |
 | `resources/views/themes/fragzone/layouts/app.blade.php` | `resources/views/themes/fragzone-dark/layouts/app.blade.php` |
 | `resources/views/themes/fragzone/servers/index.blade.php` | `resources/views/themes/fragzone-dark/servers/index.blade.php` |
 
-When an override is absent, Laravel renders the matching view from the complete `fragzone` theme. A small theme can therefore replace only `home.blade.php`; a full redesign can replace the public layout and every public page.
+Когато override липсва, Laravel render-ва съответния изглед от пълната тема `fragzone`. Така малка тема може да замени само `home.blade.php`, а пълен редизайн може да замени публичния layout и всички публични страници.
 
-Administration and `/admin/login` always use core views so a broken public theme cannot lock operators out.
+Администрацията и `/admin/login` винаги използват core изгледи, за да не може повредена публична тема да блокира достъпа на операторите.
 
-If the selected theme directory is removed during an update, FragZone falls back to the physical `fragzone` directory automatically. The database value is not trusted unless the matching installed directory exists.
+Ако избраната theme директория бъде премахната при обновяване, FragZone автоматично преминава към физическата директория `fragzone`. Стойността в базата не се приема, освен ако съответната инсталирана директория съществува.
 
-## Creating a theme
+## Създаване на тема
 
-1. Create `resources/views/themes/<slug>`.
-2. Copy only the Blade files that need visual changes from `resources/views/themes/fragzone`.
-3. Keep route names, form methods, CSRF tokens and expected variables compatible with the default view.
-4. Open **Administration → SEO & Settings → Active theme** and select the discovered folder.
-5. Test home, server list/detail, news, both locales and responsive layouts.
+1. Създайте `resources/views/themes/<slug>`.
+2. Копирайте от `resources/views/themes/fragzone` само Blade файловете, които искате да промените.
+3. Запазете съвместими route имената, form methods, CSRF tokens и очакваните variables.
+4. Отворете **Администрация → SEO и настройки → Активна тема** и изберете откритата директория.
+5. Тествайте началната страница, списъка/детайлите за сървър, новините, двата езика и responsive layout-а.
 
-Example:
+Пример:
 
 ```bash
 mkdir -p resources/views/themes/fragzone-dark/layouts
@@ -61,24 +63,24 @@ cp resources/views/themes/fragzone/home.blade.php resources/views/themes/fragzon
 cp resources/views/themes/fragzone/layouts/app.blade.php resources/views/themes/fragzone-dark/layouts/app.blade.php
 ```
 
-Theme-specific styling can be written inside an overridden Blade layout or can reference a versioned file placed in `public/themes/<slug>/`. Public assets are optional; the theme system itself requires only Blade files and continues to use FragZone assets when the layout is not replaced.
+Theme-specific стиловете могат да бъдат написани в override-нат Blade layout или да сочат към versioned файл в `public/themes/<slug>/`. Публичните assets са опционални; самата theme система изисква само Blade файлове и продължава да използва FragZone assets, когато layout-ът не е заменен.
 
-## Update rules
+## Правила при обновяване
 
-- Never modify controllers, models, migrations or core services inside a theme request.
-- Do not copy every default view unless the design genuinely replaces it.
-- After a core update, compare only the overridden files with their current `themes/fragzone` counterparts.
-- Preserve accessibility labels, locale helpers, CSRF fields and admin-free public navigation.
-- Store each commissioned theme directory in Git so it can be deployed and rolled back with the application.
+- Не променяйте контролери, модели, migrations или core services в заявка за тема.
+- Не копирайте всеки default изглед, освен ако дизайнът действително го заменя.
+- След core update сравнявайте само override-натите файлове с актуалните им `themes/fragzone` версии.
+- Запазете accessibility labels, locale helpers, CSRF fields и публичната навигация без admin линкове.
+- Пазете всяка поръчана theme директория в Git, за да може да се deploy-ва и връща назад с приложението.
 
-After adding/removing a theme on a cached manual/LAMP installation, clear cached views/configuration:
+След добавяне или премахване на тема при cached manual/LAMP инсталация изчистете cached views/configuration:
 
 ```bash
 php artisan optimize:clear
 php artisan optimize
 ```
 
-Inside Docker run the same operations as the PHP-FPM user to keep compiled views writable:
+В Docker изпълнете същите операции като PHP-FPM потребителя, за да останат compiled views достъпни за запис:
 
 ```bash
 ./docker/compose artisan optimize:clear

@@ -1,33 +1,35 @@
-# Product concept
+# Концепция на продукта
 
-## Vision
+[Български](concept.md) | [English](en/concept.md)
 
-FragZone is a fast, welcoming home for Counter-Strike communities. Visitors can discover a server, verify its current map and population, inspect recent activity and connect without digging through Discord messages or raw IP lists. Operators can maintain all content from a focused administration area.
+## Визия
 
-## Audience and primary journeys
+FragZone е бърз и приветлив дом за Counter-Strike общности. Посетителите могат да открият сървър, да проверят текущата карта и броя играчи, да разгледат последната активност и да се свържат, без да търсят из Discord съобщения или списъци с IP адреси. Операторите управляват цялото съдържание от фокусирана администрация.
 
-- Players browse by game and category, compare population and latency, open a server detail page, then copy the address or launch Steam Connect.
-- Returning players check current maps, top players, recent activity and community news.
-- Administrators add servers and categories, publish news and monitor stale/offline query results.
+## Аудитория и основни действия
 
-## Information architecture
+- Играчите разглеждат по игра и категория, сравняват population и latency, отварят детайлна страница и копират адреса или стартират Steam Connect.
+- Завръщащите се играчи проверяват текущи карти, топ играчи, скорошна активност и новини.
+- Администраторите добавят сървъри и категории, публикуват новини и следят стари/offline резултати от заявките.
 
-- Home: live network summary, featured servers, category shortcuts, latest news.
-- Servers: filters for CS 1.6 / CS:GO, category, online status and search.
-- Server detail: address, status, map, players, capacity, rules and recent snapshots.
-- Categories: competitive, public, deathmatch, zombie, surf, jailbreak and custom groups.
-- Rankings: aggregated player snapshots, play time and score when the protocol exposes them.
-- News: announcements, updates, events and guides.
-- Administration: dashboard, server CRUD, category CRUD, news CRUD and manual refresh.
+## Информационна архитектура
 
-## Visual direction
+- Начало: live обобщение на мрежата, препоръчани сървъри, категории и последни новини.
+- Сървъри: филтри за CS 1.6 / CS:GO, категория, online статус и търсене.
+- Детайли за сървър: адрес, статус, карта, играчи, капацитет, правила и последни snapshots.
+- Категории: competitive, public, deathmatch, zombie, surf, jailbreak и custom групи.
+- Класации: обобщени snapshots на играчи, игрово време и резултат, когато протоколът ги предоставя.
+- Новини: съобщения, обновявания, събития и ръководства.
+- Администрация: dashboard и CRUD за сървъри, категории и новини, плюс ръчно обновяване.
 
-The interface uses a dark graphite field, warm tactical amber as the action color, cool cyan for live telemetry and restrained grid/noise details. Typography is compact and editorial rather than a generic gaming neon theme. Interaction is server-rendered Blade with small progressive JavaScript enhancements, responsive layouts, visible focus states and reduced-motion support.
+## Визуална посока
 
-## MVP acceptance criteria
+Интерфейсът използва тъмно графитено поле, топъл тактически кехлибарен цвят за действия, студен cyan за live telemetry и дискретни grid/noise детайли. Типографията е компактна и редакционна, а не generic gaming neon тема. Интеракцията е server-rendered Blade с малки progressive JavaScript подобрения, responsive layout, видими focus състояния и поддръжка на reduced motion.
 
-- A visitor can browse, filter and open seeded servers without signing in.
-- Live status degrades gracefully to the last snapshot or an unavailable state.
-- An authenticated administrator can create, edit and remove a server.
-- Scheduled refreshes do not block page requests.
-- Local, production TLS and external reverse-proxy Docker modes remain available.
+## Критерии за приемане на MVP
+
+- Посетител може да разглежда, филтрира и отваря примерни сървъри без вход.
+- Live статусът преминава коректно към последния snapshot или unavailable състояние.
+- Удостоверен администратор може да създава, редактира и изтрива сървър.
+- Планираните обновявания не блокират page requests.
+- Остават налични Docker режимите за local, production TLS и външен reverse proxy.

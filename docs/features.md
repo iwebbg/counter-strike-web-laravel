@@ -1,62 +1,64 @@
-# Feature catalogue
+# Каталог с възможности
 
-This document describes the functionality currently implemented in FragZone.
+[Български](features.md) | [English](en/features.md)
 
-## Public portal
+Този документ описва функционалността, реализирана в FragZone.
 
-- Responsive Laravel Blade interface with a dark Counter-Strike visual system.
-- Bulgarian and English interfaces with a configurable fallback language.
-- Language selector designed to support additional configured locales.
-- Home page with live population, capacity and game-mode summaries.
-- Featured-server cards, category shortcuts and latest published news.
-- Server directory with text search, game filter and category filter.
-- Server details with connection address, Steam Connect link, map, population, ping and refresh time.
-- Player list ordered by kills/score and connected time when `A2S_PLAYER` data is available.
-- Public localized news index and article pages.
-- Admin login intentionally omitted from public navigation.
+## Публичен портал
 
-## Game-server telemetry
+- Responsive Laravel Blade интерфейс с тъмна Counter-Strike визуална система.
+- Български и английски интерфейс с конфигурируем fallback език.
+- Езиков selector, проектиран да поддържа допълнителни конфигурирани езици.
+- Начална страница с live обобщение за играчи, капацитет и игрови режими.
+- Карти за препоръчани сървъри, преки пътища към категории и последни публикувани новини.
+- Списък със сървъри с текстово търсене, филтър по игра и категория.
+- Детайли за сървър с адрес, Steam Connect линк, карта, играчи, ping и време на обновяване.
+- Списък с играчи, подреден по убийства/резултат и време на връзката, когато има `A2S_PLAYER` данни.
+- Публични локализирани списък и страници за новини.
+- Admin login умишлено не присъства в публичната навигация.
 
-- Native Valve `A2S_INFO` and `A2S_PLAYER` UDP queries.
-- GoldSrc support for Counter-Strike 1.6 and Source support for CS:GO-compatible servers.
-- Challenge-response handling and bounded Source/GoldSrc split-packet reassembly.
-- Configurable short query timeout with a graceful offline/error state.
-- Persisted current status and historical server snapshots.
-- Automatic refresh every minute through Laravel Scheduler.
-- Manual refresh with `php artisan servers:refresh` or a specific server ID.
-- Public host names and Internet IP addresses; servers do not need to run beside the website.
+## Телеметрия на игровите сървъри
 
-Valve `A2S_PLAYER` does not include CT/T membership. Team separation requires a game-server plugin or a separate API that publishes that information.
+- Нативни Valve `A2S_INFO` и `A2S_PLAYER` UDP заявки.
+- GoldSrc поддръжка за Counter-Strike 1.6 и Source поддръжка за CS:GO-съвместими сървъри.
+- Обработка на challenge-response и ограничено сглобяване на разделени Source/GoldSrc packets.
+- Конфигурируем кратък query timeout с коректно offline/error състояние.
+- Запазване на текущия статус и исторически snapshots.
+- Автоматично обновяване всяка минута чрез Laravel Scheduler.
+- Ръчно обновяване с `php artisan servers:refresh` или конкретен server ID.
+- Поддръжка на публични host имена и Internet IP адреси; сървърите не е нужно да работят до уебсайта.
 
-## Administration
+Valve `A2S_PLAYER` не включва принадлежност към CT/T. Разделянето по отбори изисква plugin на игровия сървър или отделен API, който публикува тази информация.
 
-- Separate rate-limited administrator login protected by sessions and CSRF.
-- Dashboard totals for servers, online servers, players and news.
-- Server create, edit and delete workflows with automatic slugs.
-- CS 1.6/CS:GO and GoldSrc/Source selection, featured/published controls and localized descriptions.
-- Category create, edit and delete with localized content and accent colors.
-- Protected category deletion while servers still use the category.
-- Localized news create, edit, publish and delete workflows.
-- Rich-text editor with server-side HTML sanitization.
-- Branding and localized SEO settings: identity, logo subtitle, metadata, keywords, homepage copy and footer.
-- Reusable language tabs that open the locale containing a validation error.
-- Interactive `admin:create` command for first-administrator provisioning.
-- Directory-based Blade themes with a complete physical FragZone fallback and administration selection.
+## Администрация
 
-## Localization and operations
+- Отделен rate-limited администраторски вход със sessions и CSRF защита.
+- Dashboard стойности за всички/online сървъри, играчи и новини.
+- Създаване, редакция и изтриване на сървъри с автоматични slugs.
+- Избор на CS 1.6/CS:GO и GoldSrc/Source, controls за featured/published и локализирани описания.
+- Създаване, редакция и изтриване на категории с локализирано съдържание и акцентни цветове.
+- Защита от изтриване на категория, докато се използва от сървъри.
+- Локализирано създаване, редакция, публикуване и изтриване на новини.
+- Rich-text редактор със server-side HTML sanitization.
+- Branding и локализирани SEO настройки: идентичност, subtitle на логото, metadata, ключови думи, homepage текстове и footer.
+- Преизползваеми езикови tabs, които отварят locale-а с validation error.
+- Интерактивна команда `admin:create` за създаване на първия администратор.
+- Директорийни Blade теми с пълна физическа FragZone fallback тема и избор от администрацията.
 
-- Bulgarian and English UI dictionaries with session-persisted language choice.
-- JSON-backed localized server, category, news and SEO content with fallback.
-- Local Docker stack: PHP-FPM, Nginx, MariaDB, Redis and scheduler.
-- Production stack: immutable images, queue, scheduler, persistent volumes and automatic Let's Encrypt.
-- External reverse-proxy mode and Apache/cPanel `public/.htaccess` support.
-- Password hashing, CSRF, admin middleware, login throttling and Nginx security headers.
-- Isolated SQLite in-memory PHPUnit suite.
+## Локализация и операции
 
-## Current boundaries
+- Български и английски UI речници с езиков избор, запазен в session.
+- JSON-базирано локализирано съдържание за сървъри, категории, новини и SEO с fallback.
+- Local Docker stack: PHP-FPM, Nginx, MariaDB, Redis и scheduler.
+- Production stack: immutable images, queue, scheduler, persistent volumes и автоматичен Let's Encrypt.
+- Режим за външен reverse proxy и поддръжка на Apache/cPanel чрез `public/.htaccess`.
+- Password hashing, CSRF, admin middleware, login throttling и Nginx security headers.
+- Изолиран SQLite in-memory PHPUnit test suite.
 
-- Team membership is unavailable through the standard Valve player protocol.
-- There is no public player account system; only website administrators authenticate.
-- Rankings are snapshot-based and depend on servers allowing `A2S_PLAYER`.
-- The portal does not execute commands or mutations against Counter-Strike servers.
-- LGSL is not bundled; the native adapter avoids its GPL runtime and legacy PHPUnit dependency.
+## Текущи ограничения
+
+- Отборът на играча не е достъпен чрез стандартния Valve player protocol.
+- Няма публична система за player accounts; влизат само администратори на сайта.
+- Класациите са snapshot-базирани и зависят от разрешен `A2S_PLAYER`.
+- Порталът не изпълнява команди или промени по Counter-Strike сървърите.
+- LGSL не се включва; нативният adapter избягва GPL runtime и legacy PHPUnit dependency.

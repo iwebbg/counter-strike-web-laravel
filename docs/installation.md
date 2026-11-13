@@ -1,20 +1,22 @@
-# Installation with Docker
+# Инсталация с Docker
 
-Docker is the recommended way to run FragZone. It supplies the expected PHP, Nginx, MariaDB and Redis versions and includes long-running scheduler and queue services.
+[Български](installation.md) | [English](en/installation.md)
 
-For a server without Docker, see [LAMP, Apache and cPanel installation](installation-manual.md). Every setting is described in [Environment configuration](configuration.md).
+Docker е препоръчителният начин за стартиране на FragZone. Той осигурява очакваните версии на PHP, Nginx, MariaDB и Redis и включва дългоживеещи scheduler и queue услуги.
 
-## Requirements
+За сървър без Docker вижте [LAMP, Apache и cPanel инсталация](installation-manual.md). Всички настройки са описани в [Конфигурация на средата](configuration.md).
 
-- Docker Engine and Docker Compose v2.
+## Изисквания
+
+- Docker Engine и Docker Compose v2.
 - Git.
-- A domain with editable DNS for direct production HTTPS.
-- Outbound UDP access to every monitored Counter-Strike query port.
-- Host ports 80 and 443 available in direct production mode.
+- Domain с редактируем DNS за директен production HTTPS.
+- Изходящ UDP достъп до query порта на всеки наблюдаван Counter-Strike сървър.
+- Свободни host портове 80 и 443 в директен production режим.
 
-## Clone and select a release
+## Клониране и избор на версия
 
-Keep production as a Git working copy:
+Поддържайте production инсталацията като Git working copy:
 
 ```bash
 git clone https://github.com/iwebbg/counter-strike-web-laravel.git
@@ -23,7 +25,7 @@ git switch main
 git pull --ff-only origin main
 ```
 
-When version tags are available, use a fixed production release:
+Когато има version tags, използвайте фиксирана production версия:
 
 ```bash
 git fetch origin --tags --prune
@@ -31,9 +33,9 @@ git tag --sort=-version:refname
 git switch --detach v1.0.0
 ```
 
-Keep deployment values only in the untracked root `.env` and `docker/.env`.
+Пазете deployment стойностите само в непроследяваните root `.env` и `docker/.env`.
 
-## Local installation
+## Локална инсталация
 
 ```bash
 cp .env.example .env
@@ -43,14 +45,14 @@ cp docker/.env.example docker/.env
 ./docker/compose exec -T app php artisan migrate --seed --force
 ```
 
-Keep `DOCKER_ENV=local` in `docker/.env` and open `http://localhost`.
+Оставете `DOCKER_ENV=local` в `docker/.env` и отворете `http://localhost`.
 
 ```text
 Email: admin@fragzone.local
 Password: ChangeMe123!
 ```
 
-The credentials and seeded content are for local evaluation only. Source is bind-mounted; Composer dependencies live in a Docker volume and install automatically on first start.
+Тези credentials и примерното съдържание са само за локална оценка. Source кодът е bind-mounted; Composer dependencies са в Docker volume и се инсталират автоматично при първото стартиране.
 
 ```bash
 ./docker/compose ps
@@ -60,13 +62,13 @@ The credentials and seeded content are for local evaluation only. Source is bind
 ./docker/compose down
 ```
 
-Normal `down` keeps data volumes. Do not add `--volumes` unless all stored data is intentionally being deleted.
+Обикновеното `down` запазва data volumes. Не добавяйте `--volumes`, освен ако умишлено изтривате всички записани данни.
 
-## Direct production with automatic HTTPS
+## Директен production режим с автоматичен HTTPS
 
-### DNS and firewall
+### DNS и firewall
 
-Point the domain's A/AAAA records to the Docker host. Allow inbound TCP 80/443 and outbound/return UDP traffic for the configured game-server query ports, commonly around 27015.
+Насочете A/AAAA записите на domain-а към Docker host-а. Разрешете входящ TCP 80/443 и изходящ/ответен UDP трафик за конфигурираните query портове на игровите сървъри, обичайно около 27015.
 
 ### Environment
 
@@ -75,7 +77,7 @@ cp .env.example .env
 cp docker/.env.example docker/.env
 ```
 
-Use strong unique secrets and this production shape in the root `.env`:
+Използвайте силни уникални secrets и следната production структура в root `.env`:
 
 ```dotenv
 APP_NAME=FragZone
@@ -109,13 +111,13 @@ LOG_CHANNEL=stack
 LOG_LEVEL=warning
 ```
 
-Generate an application key and copy the complete output into `APP_KEY`:
+Генерирайте application key и копирайте целия output в `APP_KEY`:
 
 ```bash
 php -r "echo 'base64:'.base64_encode(random_bytes(32)).PHP_EOL;"
 ```
 
-Set `docker/.env`:
+Настройте `docker/.env`:
 
 ```dotenv
 DOCKER_ENV=production
@@ -124,9 +126,9 @@ NGINX_CONTAINER_NAME=fragzone-nginx
 EXTERNAL_DOCKER_NETWORK=server1_net
 ```
 
-`APP_DOMAIN` is a host name only, without `https://` or a path.
+`APP_DOMAIN` е само host име, без `https://` или path.
 
-### Start and provision
+### Стартиране и конфигуриране
 
 ```bash
 ./docker/compose up --detach --build
@@ -136,25 +138,25 @@ EXTERNAL_DOCKER_NETWORK=server1_net
 ./docker/compose artisan optimize
 ```
 
-Do not run `db:seed` in production. `admin:create` requires a unique email and a password of at least 12 characters with uppercase/lowercase letters, a number and a symbol.
+Не изпълнявайте `db:seed` в production. `admin:create` изисква уникален email и парола с поне 12 символа, малки/главни букви, цифра и специален символ.
 
-On first start, Nginx requests a Let's Encrypt certificate using `webmaster@APP_DOMAIN`, then redirects HTTP to HTTPS. Renewal is checked every 12 hours and successful renewal reloads Nginx.
+При първото стартиране Nginx заявява Let's Encrypt сертификат чрез `webmaster@APP_DOMAIN`, след което пренасочва HTTP към HTTPS. Подновяването се проверява на всеки 12 часа, а успешно подновяване reload-ва Nginx.
 
 ```bash
 ./docker/compose logs --follow nginx app
 ```
 
-## Behind an existing reverse proxy
+## Зад съществуващ reverse proxy
 
-Use external mode when Traefik, Nginx Proxy Manager, Caddy or another proxy already owns ports 80/443 and TLS.
+Използвайте external режим, когато Traefik, Nginx Proxy Manager, Caddy или друг proxy вече управлява портове 80/443 и TLS.
 
-Create the proxy network only if it does not already exist:
+Създайте proxy network само ако още не съществува:
 
 ```bash
 docker network create server1_net
 ```
 
-Configure `docker/.env`:
+Настройте `docker/.env`:
 
 ```dotenv
 DOCKER_ENV=external
@@ -163,7 +165,7 @@ NGINX_CONTAINER_NAME=fragzone-nginx
 EXTERNAL_DOCKER_NETWORK=server1_net
 ```
 
-Keep `APP_URL=https://cs.example.com`, `APP_ENV=production` and `APP_DEBUG=false`, then run:
+Оставете `APP_URL=https://cs.example.com`, `APP_ENV=production` и `APP_DEBUG=false`, след което изпълнете:
 
 ```bash
 ./docker/compose up --detach --build
@@ -171,11 +173,11 @@ Keep `APP_URL=https://cs.example.com`, `APP_ENV=production` and `APP_DEBUG=false
 ./docker/compose exec app php artisan admin:create
 ```
 
-FragZone Nginx joins the named network as `fragzone-nginx`, exposes internal port 80 and publishes no host port. Forward the domain to `http://fragzone-nginx:80` and send `X-Forwarded-Proto: https`.
+FragZone Nginx се включва в посочената network като `fragzone-nginx`, expose-ва вътрешен порт 80 и не публикува host port. Насочете domain-а към `http://fragzone-nginx:80` и изпращайте `X-Forwarded-Proto: https`.
 
-## Updates
+## Обновяване
 
-Back up the database and environment files first:
+Първо архивирайте базата и environment файловете:
 
 ```bash
 git fetch origin --tags --prune
@@ -185,44 +187,44 @@ git pull --ff-only origin main
 ./docker/compose artisan optimize
 ```
 
-For tag deployments, switch to the selected newer tag instead of pulling `main`.
+При deployment по tag преминете към избрания по-нов tag, вместо да pull-вате `main`.
 
-## Backup and restore
+## Backup и restore
 
-Create a dump outside the containers:
+Създайте dump извън контейнерите:
 
 ```bash
 ./docker/compose exec -T database sh -c 'mariadb-dump -uroot -p"$MARIADB_ROOT_PASSWORD" "$MARIADB_DATABASE"' > fragzone-backup.sql
 ```
 
-Test backups on a separate installation. Restore only in a maintenance window because it replaces current database content:
+Тествайте backups на отделна инсталация. Възстановявайте само в maintenance прозорец, защото операцията заменя текущите данни:
 
 ```bash
 ./docker/compose exec -T database sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" "$MARIADB_DATABASE"' < fragzone-backup.sql
 ```
 
-Persistent Docker volumes are not a substitute for an external backup.
+Persistent Docker volumes не заменят външен backup.
 
-## Troubleshooting
+## Отстраняване на проблеми
 
-### Missing `vendor/autoload.php`
+### Липсва `vendor/autoload.php`
 
-Wait for the first dependency installation and inspect logs:
+Изчакайте първата инсталация на dependencies и проверете логовете:
 
 ```bash
 ./docker/compose logs --follow app
 ./docker/compose exec -T app composer install --no-interaction --prefer-dist
 ```
 
-### Server always offline
+### Сървърът винаги е offline
 
 ```bash
 ./docker/compose exec -T app php artisan servers:refresh
 ./docker/compose logs --tail=200 scheduler
 ```
 
-Verify host/query port, Valve A2S availability and UDP firewall rules. A successful TCP connection does not prove the UDP query works.
+Проверете host/query port, Valve A2S достъпа и UDP firewall правилата. Успешната TCP връзка не доказва, че UDP заявката работи.
 
-### Certificate request fails
+### Заявката за сертификат е неуспешна
 
-Confirm DNS points to this host, 80/443 are free, `APP_DOMAIN` has no scheme and Let's Encrypt can reach port 80. Use external mode when another service owns the public ports.
+Потвърдете, че DNS сочи към този host, портове 80/443 са свободни, `APP_DOMAIN` няма scheme и Let's Encrypt достига порт 80. Използвайте external режим, когато друга услуга управлява публичните портове.
