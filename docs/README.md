@@ -1,20 +1,22 @@
-# FragZone documentation
+# Документация на FragZone
 
-## Getting started
+[Български](README.md) | [English](en/README.md)
 
-- [Docker installation and production deployment](installation.md)
-- [LAMP, Apache and cPanel installation](installation-manual.md)
-- [Environment configuration](configuration.md)
+## Начало
 
-## Product
+- [Docker инсталация и production deployment](installation.md)
+- [LAMP, Apache и cPanel инсталация](installation-manual.md)
+- [Конфигурация на средата](configuration.md)
 
-- [Feature catalogue](features.md)
-- [Product concept](concept.md)
-- [Roadmap](roadmap.md)
+## Продукт
 
-## Development
+- [Каталог с възможности](features.md)
+- [Концепция на продукта](concept.md)
+- [План за развитие](roadmap.md)
 
-- [Architecture](architecture.md)
-- [Blade theme development](themes.md)
-- [Testing and database isolation](testing.md)
-- [Coding standards](coding-standards.md)
+## Разработка
+
+- [Архитектура](architecture.md)
+- [Разработка на Blade теми](themes.md)
+- [Тестове и изолация на базата](testing.md)
+- [Стандарти за програмиране](coding-standards.md)

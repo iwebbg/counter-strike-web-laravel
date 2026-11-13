@@ -1,18 +1,16 @@
-# Testing
+# Тестване
 
-## Continuous integration
+[Български](testing.md) | [English](en/testing.md)
 
-GitHub Actions runs Composer validation, Laravel Pint and the complete PHPUnit
-suite for pull requests and pushes to `develop` and `main`. Pull requests into
-`main` must originate from the repository's `develop` branch. All other work
-targets `develop` through a focused feature or fix branch.
+## Непрекъсната интеграция
 
-`@iwebbg` is the sole code owner. Both protected branches require a code-owner
-review and the `Branch policy` and `Backend` status checks before merging.
+GitHub Actions изпълнява Composer validation, Laravel Pint и пълния PHPUnit suite при pull requests и push към `develop` и `main`. Pull requests към `main` трябва да идват от `develop` branch-а на това хранилище. Всички други промени се насочват към `develop` през фокусиран feature или fix branch.
 
-FragZone's PHPUnit suite runs in a disposable Docker service with SQLite in memory. It must remain isolated from the long-running MariaDB container.
+`@iwebbg` е единственият code owner. И двата защитени branch-а изискват code-owner review и успешни `Branch policy` и `Backend` проверки преди merge.
 
-## Full suite
+PHPUnit suite-ът на FragZone работи в disposable Docker service със SQLite in-memory база. Той трябва да остане изолиран от дългоживеещия MariaDB контейнер.
+
+## Пълен test suite
 
 ```bash
 cp .env.example .env
@@ -20,9 +18,9 @@ cp docker/.env.example docker/.env
 ./docker/compose test
 ```
 
-The test service builds the testing PHP image, installs Composer dependencies, runs PHPUnit against `sqlite` / `:memory:` and removes the one-shot container.
+Test service-ът изгражда testing PHP image, инсталира Composer dependencies, изпълнява PHPUnit със `sqlite` / `:memory:` и премахва еднократния контейнер.
 
-The PHPUnit configuration and base test bootstrap force:
+PHPUnit конфигурацията и базовият test bootstrap налагат:
 
 ```text
 APP_ENV=testing
@@ -33,27 +31,27 @@ SESSION_DRIVER=array
 QUEUE_CONNECTION=sync
 ```
 
-## Narrow runs
+## Фокусирани тестове
 
 ```bash
 ./docker/compose test tests/Feature/AdminAuthenticationTest.php
 ./docker/compose test --filter=test_seeded_administrator_can_log_in
 ```
 
-## Safety rule
+## Правило за безопасност
 
-Never run `php artisan test` or `vendor/bin/phpunit` inside the long-running `app` container. Always use `./docker/compose test`.
+Никога не изпълнявайте `php artisan test` или `vendor/bin/phpunit` в дългоживеещия `app` контейнер. Винаги използвайте `./docker/compose test`.
 
-Database-refresh tests intentionally reset their configured database. Pointing them at development or production MariaDB destroys application data. The suite asserts that its environment is `testing`, its driver is `sqlite`, and its database is `:memory:`.
+Тестовете с database refresh умишлено нулират конфигурираната база. Насочването им към development или production MariaDB унищожава application данните. Suite-ът проверява, че средата е `testing`, driver-ът е `sqlite`, а базата е `:memory:`.
 
-## Current coverage
+## Текущо покритие
 
-- Public portal, language selection and server browsing.
-- Server details and player score ordering.
-- Administrator login and access control.
-- Interactive administrator creation.
-- Server, category and news administration.
-- Rich-text sanitization, SEO settings and locale-tab markup.
-- Valve A2S player packet parsing.
+- Публичен портал, избор на език и разглеждане на сървъри.
+- Детайли за сървър и подреждане на играчите по резултат.
+- Администраторски вход и access control.
+- Интерактивно създаване на администратор.
+- Администрация на сървъри, категории и новини.
+- Rich-text sanitization, SEO настройки и locale-tab markup.
+- Parsing на Valve A2S player packets.
 
-Automated tests do not replace a manual UDP check against a real server. Before production, run `servers:refresh`, inspect the public detail page and confirm scheduler execution.
+Автоматизираните тестове не заменят ръчна UDP проверка към истински сървър. Преди production изпълнете `servers:refresh`, прегледайте публичната detail страница и потвърдете работата на scheduler-а.

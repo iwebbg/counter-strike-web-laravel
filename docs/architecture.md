@@ -1,39 +1,41 @@
-# Architecture
+# Архитектура
 
-## Stack
+[Български](architecture.md) | [English](en/architecture.md)
 
-- PHP 8.5 and Laravel 13
-- Blade templates with hand-authored CSS and small vanilla JavaScript enhancements
-- MariaDB 11.8 for application records
-- Redis 8 for cache, queues and sessions
-- Nginx/PHP-FPM containers, with local, automatic Let's Encrypt production, and external proxy modes
+## Технологичен стек
 
-## Theme boundary
+- PHP 8.5 и Laravel 13
+- Blade шаблони с ръчно разработен CSS и малки подобрения с vanilla JavaScript
+- MariaDB 11.8 за данните на приложението
+- Redis 8 за cache, опашки и сесии
+- Nginx/PHP-FPM контейнери с local режим, production режим с автоматичен Let's Encrypt и режим за външен reverse proxy
 
-Public themes are Blade-only directories under `resources/views/themes/<slug>`. The complete `fragzone` directory is the physical default and fallback. The active slug is stored in `site_settings`, validated against installed directories and applied by web middleware before view rendering. Laravel searches the active theme first and then `themes/fragzone`, so custom themes can replace individual pages without copying controllers, models or business logic. Administration uses its separate core layout to preserve operator access.
+## Граница на темите
 
-## Domain model
+Публичните теми са директории само с Blade файлове под `resources/views/themes/<slug>`. Пълната директория `fragzone` е физическата тема по подразбиране и fallback. Активният slug се пази в `site_settings`, валидира се спрямо инсталираните директории и се прилага от web middleware преди render на изгледа. Laravel търси първо в активната тема, а след това в `themes/fragzone`, затова custom темите могат да заменят отделни страници без копиране на контролери, модели или бизнес логика. Администрацията използва отделен core layout, за да се запази достъпът на операторите.
 
-- `users`: administration identities with an `is_admin` capability flag.
-- `server_categories`: editorial groupings with slugs and accent colors.
-- `game_servers`: connection data, game/protocol selection, presentation data and last known state.
-- `server_snapshots`: time-series query results used for charts and rankings.
-- `news_posts`: draft or published editorial content.
+## Domain модел
 
-## Query boundary
+- `users`: администраторски профили с capability флаг `is_admin`.
+- `server_categories`: редакционни групи със slug и акцентен цвят.
+- `game_servers`: данни за връзка, избор на игра/протокол, визуални данни и последно известно състояние.
+- `server_snapshots`: резултати от заявки във времето за графики и класации.
+- `news_posts`: чернови или публикувано редакционно съдържание.
 
-`GameServerQuery` is the application contract. `SourceEngineQuery` implements Valve A2S UDP queries for Source and GoldSrc servers. Controllers never open sockets. The scheduled `servers:refresh` command queues or executes refreshes, stores a compact last-known state on each server and appends a snapshot.
+## Граница на заявките
 
-LGSL 7 is treated only as a protocol reference. Its `lgsl7` branch is GPL-3.0, marked experimental/unstable, and requires an old PHPUnit release as a runtime Composer dependency. No LGSL source is imported, preserving this project's license and PHPUnit 12 compatibility. Keeping an adapter boundary prevents third-party protocol code from leaking into controllers and models.
+`GameServerQuery` е договорът на приложението. `SourceEngineQuery` реализира Valve A2S UDP заявки към Source и GoldSrc сървъри. Контролерите никога не отварят sockets. Планираната команда `servers:refresh` поставя в опашка или изпълнява обновяванията, записва компактно последното известно състояние във всеки сървър и добавя snapshot.
 
-## Operations
+LGSL 7 се използва само като референция за протоколите. Неговият branch `lgsl7` е GPL-3.0, отбелязан е като experimental/unstable и изисква стара версия на PHPUnit като runtime Composer dependency. Не е импортиран LGSL код, с което се запазват лицензът на проекта и съвместимостта с PHPUnit 12. Adapter границата не позволява protocol код от трета страна да навлиза в контролерите и моделите.
 
-- Local: bind-mounted source, MariaDB and Redis, available on port 80.
-- Production: immutable PHP and Nginx images, persistent application/database volumes, HTTP-to-HTTPS redirect and automatic certificate request/renewal.
-- External: the application Nginx joins an existing Docker network while the host reverse proxy owns TLS and public ports.
+## Операционни режими
 
-Server queries are outbound UDP. Production firewalls must allow UDP traffic to configured game server ports. Timeouts remain short and refreshes happen outside public requests.
+- Local: bind-mounted source, MariaDB и Redis, достъпни на порт 80.
+- Production: immutable PHP и Nginx images, постоянни application/database volumes, HTTP към HTTPS redirect и автоматично издаване/подновяване на сертификат.
+- External: Nginx на приложението се включва в съществуваща Docker network, а host reverse proxy управлява TLS и публичните портове.
 
-## Security baseline
+Заявките към сървърите използват изходящ UDP. Production firewall-ът трябва да позволява UDP трафик до конфигурираните портове на игровите сървъри. Timeout стойностите остават кратки, а обновяванията се изпълняват извън публичните HTTP заявки.
 
-Admin routes require session authentication and the `is_admin` middleware. Form requests validate addresses, ports and publish state. Passwords use Laravel hashing, CSRF protection is enabled, Nginx emits security headers, and secrets stay in environment files.
+## Базова сигурност
+
+Admin маршрутите изискват session authentication и middleware `is_admin`. Form requests валидират адреси, портове и publish състояние. Паролите използват Laravel hashing, CSRF защитата е включена, Nginx изпраща security headers, а secrets остават в environment файловете.

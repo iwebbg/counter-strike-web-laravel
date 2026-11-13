@@ -2,23 +2,25 @@
 
 ![FragZone Counter-Strike server portal](public/assets/cs-web-q95.webp)
 
-FragZone is a self-hosted Laravel Blade portal for Counter-Strike 1.6 and CS:GO communities. It provides a fast public server browser, live Valve A2S data and a simple administration panel.
+[Български](README.md) | [English](README.en.md)
 
-## Features
+FragZone е self-hosted Laravel Blade портал за Counter-Strike 1.6 и CS:GO общности. Той предлага бърз публичен списък със сървъри, live Valve A2S данни и удобен административен панел.
 
-- Live server status, maps, players, rankings and featured servers
-- Server categories, news and bilingual BG/EN content
-- Administration for servers, categories, news, SEO and branding
-- Extensible Blade theme system
-- Docker, Nginx, MariaDB, Redis and PHPUnit support
+## Възможности
 
-## Documentation
+- Live статус на сървъри, карти, играчи, класации и препоръчани сървъри
+- Категории, новини и двуезично BG/EN съдържание
+- Администрация на сървъри, категории, новини, SEO и брандинг
+- Разширяема система за Blade теми
+- Поддръжка на Docker, Nginx, MariaDB, Redis и PHPUnit
 
-Setup, deployment, configuration and developer guides are available in the [full documentation](docs/README.md).
+## Документация
 
-## Support the project
+Ръководствата за инсталация, deployment, конфигурация и разработка са налични в [пълната документация](docs/README.md).
 
-If FragZone is useful to your server or community, you can support its continued development:
+## Подкрепете проекта
+
+Ако FragZone е полезен за вашия сървър или общност, можете да подкрепите неговата поддръжка и развитие:
 
 - [Buy Me a Coffee](https://buymeacoffee.com/interweb.bg)
 - [Ko-fi](https://ko-fi.com/interwebltd)

@@ -1,3 +1,5 @@
-# Coding standards
+# Стандарти за програмиране
 
-Application classes and methods use explicit PHP types and short PHPDoc descriptions. Controllers coordinate HTTP concerns; socket protocol logic belongs behind query contracts; persistence belongs in models or actions. Multi-record writes use transactions. Every public endpoint and domain parser should receive a focused test. PHP changes are formatted with Pint.
+[Български](coding-standards.md) | [English](en/coding-standards.md)
+
+Класовете и методите на приложението използват explicit PHP типове и кратки PHPDoc описания. Контролерите координират HTTP действията; socket protocol логиката стои зад query contracts; persistence логиката е в модели или actions. Операциите с няколко записа използват transactions. Всеки публичен endpoint и domain parser трябва да има фокусиран тест. PHP промените се форматират с Pint.

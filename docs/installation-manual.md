@@ -1,18 +1,20 @@
-# LAMP, Apache and cPanel installation
+# LAMP, Apache и cPanel инсталация
 
-This guide runs FragZone without Docker. The operator supplies PHP, Composer, MariaDB, TLS, cron, process supervision, backups and security updates.
+[Български](installation-manual.md) | [English](en/installation-manual.md)
 
-Manual hosting works only when the domain document root can point to Laravel's `public` directory and the host allows outbound UDP.
+Това ръководство стартира FragZone без Docker. Операторът осигурява PHP, Composer, MariaDB, TLS, cron, process supervision, backups и security updates.
 
-## Requirements
+Manual hosting работи само когато document root на domain-а може да сочи към Laravel директорията `public` и host-ът позволява изходящ UDP.
 
-- Apache 2.4 with `mod_rewrite`, or equivalent Nginx rules.
-- PHP 8.5 for web and CLI.
-- Composer 2, MariaDB 10.6+ or MySQL 8+, Git and per-minute cron.
-- Optional Redis/Supervisor for larger installations.
-- Outbound UDP access to monitored Counter-Strike query ports.
+## Изисквания
 
-Required PHP extensions: `ctype`, `curl`, `dom`, `fileinfo`, `filter`, `hash`, `iconv`, `intl`, `json`, `libxml`, `mbstring`, `openssl`, `pcre`, `pdo`, `pdo_mysql`, `session`, `tokenizer`, `xml` and `zip`. Add `redis` only for Redis-backed services.
+- Apache 2.4 с `mod_rewrite` или еквивалентни Nginx правила.
+- PHP 8.5 за web и CLI.
+- Composer 2, MariaDB 10.6+ или MySQL 8+, Git и cron всяка минута.
+- Опционални Redis/Supervisor за по-големи инсталации.
+- Изходящ UDP достъп до query портовете на наблюдаваните Counter-Strike сървъри.
+
+Задължителни PHP extensions: `ctype`, `curl`, `dom`, `fileinfo`, `filter`, `hash`, `iconv`, `intl`, `json`, `libxml`, `mbstring`, `openssl`, `pcre`, `pdo`, `pdo_mysql`, `session`, `tokenizer`, `xml` и `zip`. Добавете `redis` само за Redis-базирани услуги.
 
 ```bash
 php --version
@@ -20,7 +22,7 @@ php -m
 composer check-platform-reqs
 ```
 
-## Linux LAMP installation
+## Linux LAMP инсталация
 
 ```bash
 cd /var/www
@@ -31,7 +33,7 @@ composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 php artisan key:generate
 ```
 
-Create a database and restricted user as a database administrator:
+Създайте база и ограничен потребител като database administrator:
 
 ```sql
 CREATE DATABASE fragzone CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -40,7 +42,7 @@ GRANT ALL PRIVILEGES ON fragzone.* TO 'fragzone'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-Basic production `.env` without Redis:
+Основен production `.env` без Redis:
 
 ```dotenv
 APP_NAME=FragZone
@@ -70,7 +72,7 @@ LOG_CHANNEL=stack
 LOG_LEVEL=warning
 ```
 
-Docker-only values such as `DB_ROOT_PASSWORD`, `APP_DOMAIN`, `NGINX_CONTAINER_NAME` and the default Docker `REDIS_HOST` are not needed.
+Docker-only стойности като `DB_ROOT_PASSWORD`, `APP_DOMAIN`, `NGINX_CONTAINER_NAME` и default Docker `REDIS_HOST` не са необходими.
 
 ```bash
 php artisan migrate --force
@@ -78,9 +80,9 @@ php artisan admin:create
 php artisan optimize
 ```
 
-Do not run the demo seeder in production.
+Не стартирайте demo seeder-а в production.
 
-Set appropriate ownership and writable directories:
+Задайте подходящи ownership и writable директории:
 
 ```bash
 sudo chown -R www-data:www-data /var/www/fragzone
@@ -114,11 +116,11 @@ sudo apachectl configtest
 sudo systemctl reload apache2
 ```
 
-The repository contains `public/.htaccess`. Never point a domain at the repository root because that can expose `.env` and source files.
+Хранилището съдържа `public/.htaccess`. Никога не насочвайте domain към root директорията на хранилището, защото това може да разкрие `.env` и source файлове.
 
-## Scheduler and queue
+## Scheduler и queue
 
-Add one cron entry under the application owner:
+Добавете един cron запис под application owner-а:
 
 ```cron
 * * * * * cd /var/www/fragzone && /usr/bin/php artisan schedule:run >> /dev/null 2>&1
@@ -129,22 +131,22 @@ php artisan servers:refresh
 php artisan schedule:list
 ```
 
-No worker is required for `QUEUE_CONNECTION=sync`. Database/Redis queues require `php artisan queue:work` under Supervisor/systemd and `php artisan queue:restart` after deployment.
+При `QUEUE_CONNECTION=sync` не е нужен worker. Database/Redis queues изискват `php artisan queue:work` под Supervisor/systemd и `php artisan queue:restart` след deployment.
 
-## cPanel installation
+## cPanel инсталация
 
-Confirm the plan provides PHP 8.5, required extensions, Terminal/SSH, Composer, MariaDB/MySQL, one-minute cron, editable document root and outbound UDP. Many shared hosts block UDP; live server status then cannot work.
+Потвърдете, че планът осигурява PHP 8.5, нужните extensions, Terminal/SSH, Composer, MariaDB/MySQL, cron всяка минута, редактируем document root и изходящ UDP. Много shared hosting доставчици блокират UDP; тогава live статусът няма да работи.
 
-Recommended layout:
+Препоръчителна структура:
 
 ```text
-/home/account/fragzone/          complete checkout
-/home/account/fragzone/public/   domain document root
+/home/account/fragzone/          пълно checkout копие
+/home/account/fragzone/public/   document root на domain-а
 ```
 
-Set the domain/subdomain document root in cPanel to `/home/account/fragzone/public`. Do not place `.env`, `storage` or the repository root under a browsable `public_html`. If the plan cannot target `public` or safely follow a symlink, use a VPS/Docker host.
+Задайте document root на domain/subdomain в cPanel на `/home/account/fragzone/public`. Не поставяйте `.env`, `storage` или repository root под достъпен `public_html`. Ако планът не може да насочи към `public` или безопасно да следва symlink, използвайте VPS/Docker host.
 
-From cPanel Terminal:
+От cPanel Terminal:
 
 ```bash
 cd /home/account
@@ -155,7 +157,7 @@ composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 php artisan key:generate
 ```
 
-Create a database/user in **MySQL Databases**, assign **ALL PRIVILEGES**, and use the prefixed names:
+Създайте база/потребител в **MySQL Databases**, задайте **ALL PRIVILEGES** и използвайте имената с prefix:
 
 ```dotenv
 DB_CONNECTION=mariadb
@@ -166,7 +168,7 @@ DB_USERNAME=account_fraguser
 DB_PASSWORD=replace-with-the-cpanel-database-password
 ```
 
-Complete the production `.env`, then run:
+Попълнете production `.env`, след което изпълнете:
 
 ```bash
 php artisan migrate --force
@@ -175,17 +177,17 @@ php artisan optimize
 chmod -R ug+rwX storage bootstrap/cache
 ```
 
-Add a cPanel Cron Job:
+Добавете cPanel Cron Job:
 
 ```cron
 * * * * * cd /home/account/fragzone && /usr/local/bin/ea-php85 artisan schedule:run >> /dev/null 2>&1
 ```
 
-Use `which php` to find the actual cPanel PHP binary. Cron and web PHP versions must match. Enable AutoSSL, set the exact HTTPS `APP_URL` and `SESSION_SECURE_COOKIE=true`, then run `php artisan optimize:clear && php artisan optimize`.
+Използвайте `which php`, за да намерите действителния cPanel PHP binary. Версиите на cron и web PHP трябва да съвпадат. Включете AutoSSL, задайте точния HTTPS `APP_URL` и `SESSION_SECURE_COOKIE=true`, след което изпълнете `php artisan optimize:clear && php artisan optimize`.
 
-## Updates
+## Обновяване
 
-Back up first, then:
+Първо направете backup, след което:
 
 ```bash
 php artisan down --retry=60
@@ -197,11 +199,11 @@ php artisan queue:restart
 php artisan up
 ```
 
-## Troubleshooting
+## Отстраняване на проблеми
 
-- **All routes return 404:** enable `mod_rewrite`, allow `.htaccess`, and target `public`.
-- **500 error:** inspect `storage/logs/laravel.log`, verify `APP_KEY`, and fix writable permissions.
-- **CSS missing:** the domain root is wrong; assets are committed in `public/assets` and need no Node.js build.
-- **Server offline:** run `php artisan servers:refresh` and confirm outbound UDP/PHP stream sockets.
-- **Status never changes:** install the per-minute scheduler cron and verify its PHP binary.
-- **HTTPS login loop:** set exact `APP_URL`, `SESSION_SECURE_COOKIE=true`, clear config cache and verify the session table.
+- **Всички routes връщат 404:** включете `mod_rewrite`, разрешете `.htaccess` и насочете към `public`.
+- **Грешка 500:** проверете `storage/logs/laravel.log`, потвърдете `APP_KEY` и поправете writable permissions.
+- **Липсва CSS:** domain root е грешен; assets са commit-нати в `public/assets` и не изискват Node.js build.
+- **Сървърът е offline:** изпълнете `php artisan servers:refresh` и потвърдете изходящ UDP/PHP stream sockets.
+- **Статусът не се променя:** добавете cron всяка минута и проверете използвания PHP binary.
+- **HTTPS login loop:** задайте точен `APP_URL`, `SESSION_SECURE_COOKIE=true`, изчистете config cache и проверете session таблицата.
