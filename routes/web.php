@@ -30,6 +30,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('news', NewsPostController::class)->except('show')->parameters(['news' => 'news']);
     Route::get('/settings', [SiteSettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
+    Route::view('/support', 'admin.support')->name('support');
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 });
 
