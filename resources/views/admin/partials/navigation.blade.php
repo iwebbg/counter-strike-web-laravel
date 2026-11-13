@@ -4,5 +4,6 @@
     <a href="{{ route('admin.categories.index') }}" @class(['is-active' => request()->routeIs('admin.categories.*')])>{{ __('ui.admin.categories') }}</a>
     <a href="{{ route('admin.news.index') }}" @class(['is-active' => request()->routeIs('admin.news.*')])>{{ __('ui.admin.news') }}</a>
     <a href="{{ route('admin.settings.edit') }}" @class(['is-active' => request()->routeIs('admin.settings.*')])>{{ __('ui.admin.seo_settings') }}</a>
+    <a href="{{ route('admin.support') }}" @class(['is-active' => request()->routeIs('admin.support')])>{{ __('ui.support.navigation') }}</a>
     <form method="post" action="{{ route('admin.logout') }}">@csrf<button type="submit">{{ __('ui.admin.logout') }}</button></form>
 </nav>
